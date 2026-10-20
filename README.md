@@ -1,6 +1,6 @@
 # symfony-analytics
 
-Version: 2.0.0
+Version: 2.0.1
 
 `wexample/symfony-analytics` counts the audience of a site on the server: visitors, visits, pages viewed, where visits come from, from which country, on which device. Nothing runs in the browser and nothing is left on it.
 
@@ -65,7 +65,7 @@ The suite includes packages for configuration management, file handling, prompts
 - wexample/symfony-api: >=14.0.0
 - wexample/symfony-charts: >=3.0.0
 - wexample/symfony-geo: >=8.0.0
-- wexample/symfony-helpers: >=17.0.0
+- wexample/symfony-helpers: >=18.0.0
 - wexample/symfony-pseudocode: >=4.0.0
 
 ## Versioning & Compatibility Policy

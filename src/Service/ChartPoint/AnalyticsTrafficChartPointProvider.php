@@ -9,7 +9,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Wexample\SymfonyAnalytics\Class\AnalyticsPeriod;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsStatsService;
-use Wexample\SymfonyCharts\Entity\ChartPoint;
 use Wexample\SymfonyCharts\Helper\ChartPointHelper;
 use Wexample\SymfonyCharts\Interface\ChartPointProviderInterface;
 

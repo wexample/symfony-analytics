@@ -9,3 +9,129 @@ fr:
     visitors: Visiteurs
     visits: Visites
     views: Pages vues
+
+zh:
+  metric:
+    visitors: 访客
+    visits: 访问次数
+    views: 浏览页面
+
+ar:
+  metric:
+    visitors: الزوار
+    visits: الزيارات
+    views: 'الصفحات المعروضة'
+
+hi:
+  metric:
+    visitors: दर्शक
+    visits: दौरे
+    views: 'पृष्ठ देखे गए'
+
+he:
+  metric:
+    visitors: מבקרים
+    visits: ביקורים
+    views: 'עמודים נצפים'
+
+fa:
+  metric:
+    visitors: بازدیدکنندگان
+    visits: بازدیدها
+    views: 'صفحات مشاهده شده'
+
+ur:
+  metric:
+    visitors: 'زیارت کرنے والے'
+    visits: زیارتیں
+    views: 'دیکھے گئے صفحات'
+
+ja:
+  metric:
+    visitors: 訪問者
+    visits: 訪問数
+    views: ページビュー
+
+ko:
+  metric:
+    visitors: 방문자
+    visits: '방문 수'
+    views: '조회된 페이지'
+
+bn:
+  metric:
+    visitors: ভিজিটরস
+    visits: ভিজিটস
+    views: 'পৃষ্ঠাসমূহ দেখা হয়েছে'
+
+th:
+  metric:
+    visitors: ผู้เยี่ยมชม
+    visits: การเข้าชม
+    views: หน้าที่ถูกดู
+
+de:
+  metric:
+    visitors: Besucher
+    visits: Besuche
+    views: Seitenaufrufe
+
+fi:
+  metric:
+    visitors: Kävijät
+    visits: Vierailut
+    views: 'Näytetyt sivut'
+
+ru:
+  metric:
+    visitors: Посетители
+    visits: Визиты
+    views: 'Просмотренные страницы'
+
+pl:
+  metric:
+    visitors: Odwiedzający
+    visits: Wizyty
+    views: 'Wyświetlone strony'
+
+es:
+  metric:
+    visitors: Visitantes
+    visits: Visitas
+    views: 'Páginas vistas'
+
+it:
+  metric:
+    visitors: Visitatori
+    visits: Visite
+    views: 'Pagine visualizzate'
+
+pt_BR:
+  metric:
+    visitors: Visitantes
+    visits: Visitas
+    views: 'Páginas visualizadas'
+
+tr:
+  metric:
+    visitors: Ziyaretçiler
+    visits: Ziyaretler
+    views: 'Görüntülenen sayfalar'
+
+vi:
+  metric:
+    visitors: 'Khách truy cập'
+    visits: 'Lượt truy cập'
+    views: 'Số trang đã xem'
+
+id:
+  metric:
+    visitors: Pengunjung
+    visits: Kunjungan
+    views: 'Halaman yang dilihat'
+
+nl:
+  metric:
+    visitors: Bezoekers
+    visits: Bezoeken
+    views: "Pagina's bekeken"

@@ -1,0 +1,87 @@
+items:
+  - name: AnalyticsBreakdown
+    type: class
+    description: "One line of the audience broken down by a dimension over a period: a page,\na source, a country… and how many visitors, visits and pages it counts.\nComputed when asked for, never stored — no `#[ORM\\Entity]` —, so that it\ntravels the road every list of the stack travels: normalizer, dto,\ngenerated `AnalyticsBreakdown.ts` and its repository, which the tables of\nsymfony-analytics-ds read. Its id derives from what it is the line of."
+    properties:
+      - name: id
+        type: Symfony\Component\Uid\Uuid
+      - name: dimension
+        type: string
+      - name: dimensionKey
+        type: string
+      - name: visitors
+        type: int
+      - name: visits
+        type: int
+      - name: views
+        type: int
+    methods:
+      - type: method
+        name: buildEntityPath
+        parameters:
+          - type: string
+            name: className
+        return:
+          type: string
+      - type: method
+        name: getEntityKeyName
+        return:
+          type: string
+      - type: method
+        name: getEntityShortName
+        return:
+          type: string
+      - type: method
+        name: getId
+        return:
+          type: Symfony\Component\Uid\Uuid
+      - type: method
+        name: setId
+        parameters:
+          - type: Symfony\Component\Uid\Uuid
+            name: id
+        return:
+          type: void
+      - type: method
+        name: getTableizedName
+        return:
+          type: string
+      - type: method
+        name: getCamelName
+        return:
+          type: string
+      - type: method
+        name: __construct
+        parameters:
+          - type: string
+            name: dimension
+          - type: string
+            name: dimensionKey
+          - type: int
+            name: visitors
+          - type: int
+            name: visits
+          - type: int
+            name: views
+          - type: string
+            name: period
+      - type: method
+        name: getDimension
+        return:
+          type: string
+      - type: method
+        name: getDimensionKey
+        return:
+          type: string
+      - type: method
+        name: getVisitors
+        return:
+          type: int
+      - type: method
+        name: getVisits
+        return:
+          type: int
+      - type: method
+        name: getViews
+        return:
+          type: int

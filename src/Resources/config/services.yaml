@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $enabled: '%wexample_symfony_analytics.enabled%'
+            $accessRole: '%wexample_symfony_analytics.access_role%'
+            $excludedRoles: '%wexample_symfony_analytics.excluded_roles%'
+            $visitTimeout: '%wexample_symfony_analytics.visit_timeout%'
+            $retentionMonths: '%wexample_symfony_analytics.retention_months%'
+            $autoMaintenance: '%wexample_symfony_analytics.auto_maintenance%'
+            $secret: '%kernel.secret%'
+
+    Wexample\SymfonyAnalytics\:
+        resource: '../../{Command,EventSubscriber,Repository,Service}'
+
+    Wexample\SymfonyAnalytics\Api\Controller\:
+        resource: '../../Api/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Wexample\SymfonyAnalytics\Api\Normalizer\:
+        resource: '../../Api/Normalizer/*'
+
+    Wexample\SymfonyAnalytics\EventSubscriber\AnalyticsMaintenanceSubscriber:
+        arguments:
+            $cache: '@cache.app'

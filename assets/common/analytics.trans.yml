@@ -1,0 +1,11 @@
+en:
+  metric:
+    visitors: Visitors
+    visits: Visits
+    views: Pages viewed
+
+fr:
+  metric:
+    visitors: Visiteurs
+    visits: Visites
+    views: Pages vues

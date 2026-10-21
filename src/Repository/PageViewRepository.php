@@ -57,6 +57,17 @@ class PageViewRepository extends AbstractRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * How many pages the visitor read since then: how fast it reads.
+     */
+    public function countOfVisitorSince(string $visitorId, DateTimeImmutable $since): int
+    {
+        return (int) $this->getEntityManager()->getConnection()->fetchOne(
+            'SELECT COUNT(*) FROM ' . self::TABLE . ' WHERE visitor_id = :visitor AND viewed_at >= :since',
+            ['visitor' => $visitorId, 'since' => $since->format(self::DATE_FORMAT)]
+        );
+    }
+
     public function findOldestDate(): ?DateTimeImmutable
     {
         $oldest = $this->getEntityManager()->getConnection()->fetchOne('SELECT MIN(viewed_at) FROM ' . self::TABLE);

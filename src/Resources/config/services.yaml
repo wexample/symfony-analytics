@@ -8,6 +8,7 @@ services:
             $accessRole: '%wexample_symfony_analytics.access_role%'
             $excludedRoles: '%wexample_symfony_analytics.excluded_roles%'
             $visitTimeout: '%wexample_symfony_analytics.visit_timeout%'
+            $robotHourlyViews: '%wexample_symfony_analytics.robot_hourly_views%'
             $retentionMonths: '%wexample_symfony_analytics.retention_months%'
             $autoMaintenance: '%wexample_symfony_analytics.auto_maintenance%'
             $secret: '%kernel.secret%'

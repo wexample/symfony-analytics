@@ -51,6 +51,11 @@ class AnalyticsMaintenanceService
         $end = $month->modify('+1 month');
 
         foreach (AnalyticsDimension::cases() as $dimension) {
+            // Summed up a day at a time already.
+            if (AnalyticsDimension::ROBOT === $dimension) {
+                continue;
+            }
+
             $lines = AnalyticsDimension::TOTAL === $dimension
                 ? ['' => $this->pageViews->countTotals($month, $end)]
                 : $this->pageViews->countPerValue($dimension->getColumn(), $month, $end, self::MONTHLY_LINES);

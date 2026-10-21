@@ -35,6 +35,15 @@ class UserAgentHelperTest extends TestCase
         }
     }
 
+    public function testARobotIsNamed(): void
+    {
+        $this->assertSame('GPTBot', UserAgentHelper::getRobot('Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.4; +https://openai.com/gptbot)'));
+        // Dressed as a phone, and without "bot" in its name.
+        $this->assertSame('GoogleOther', UserAgentHelper::getRobot('Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.52 Mobile Safari/537.36 (compatible; GoogleOther)'));
+        $this->assertSame(UserAgentHelper::ROBOT_OTHER, UserAgentHelper::getRobot('curl/8.5.0'));
+        $this->assertNull(UserAgentHelper::getRobot(self::IPHONE));
+    }
+
     public function testTheDevice(): void
     {
         $this->assertSame(DeviceType::DESKTOP, UserAgentHelper::getDevice(self::FIREFOX));

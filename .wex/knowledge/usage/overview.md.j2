@@ -2,7 +2,9 @@
 
 ## What is counted
 
-`PageViewRecordSubscriber` records a page once its response has left (`kernel.terminate`): a GET answered with HTML, neither XHR nor prefetch, outside `/_`, not from a robot (crawlers, assistants' fetchers, tools — `UserAgentHelper`), not from an account of `excluded_roles` (the administrators by default).
+`PageViewRecordSubscriber` records a page once its response has left (`kernel.terminate`): a GET answered with HTML, neither XHR nor prefetch, outside `/_`, not from an account of `excluded_roles` (the administrators by default).
+
+A robot's page is counted apart, in `analytics_robot_day` (`AnalyticsRobotDay`): a sum a day per robot, kept like the months, read as the `robot` dimension of the breakdown — its pages alone, a robot having neither visitor nor visit. A robot is one its user agent names (`UserAgentHelper::getRobot()`: GPTBot, ClaudeBot, GoogleOther, Googlebot…, `other` for the rest, a missing user agent included), or a visitor reading more than `robot_hourly_views` pages within an hour (60 by default, 0 turns it off), counted as `cadence`: a crawler dressed as a browser, which no user agent gives away. The pages it read before crossing the line stay in the audience.
 
 - **Visitor**: a hash of the address and the user agent under the kernel secret and the day — no cookie, nothing reversible kept, someone else the next day. A period of several days counts a returning person once per day.
 - **Visit**: the run of pages of a visitor without a pause longer than `visit_timeout` (30 minutes); each page carries the origin of the first.

@@ -8,6 +8,7 @@ use Wexample\SymfonyAnalytics\Entity\AnalyticsBreakdown;
 use Wexample\SymfonyAnalytics\Entity\AnalyticsMonthly;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsMonthlyRepository;
+use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotDayRepository;
 use Wexample\SymfonyAnalytics\Repository\PageViewRepository;
 
 /**
@@ -24,6 +25,7 @@ class AnalyticsStatsService
     public function __construct(
         private readonly PageViewRepository $pageViews,
         private readonly AnalyticsMonthlyRepository $monthlies,
+        private readonly AnalyticsRobotDayRepository $robotDays,
         private readonly int $retentionMonths,
     ) {
     }
@@ -92,6 +94,17 @@ class AnalyticsStatsService
             $totals = $this->getTotals($period);
 
             return [new AnalyticsBreakdown($dimension->value, '', $totals['visitors'], $totals['visits'], $totals['views'], $period->getKey())];
+        }
+
+        // A robot has neither visitor nor visit: its pages alone.
+        if (AnalyticsDimension::ROBOT === $dimension) {
+            $breakdown = [];
+
+            foreach ($this->robotDays->countPerRobot($period->from, $period->to, self::BREAKDOWN_LIMIT) as $robot => $hits) {
+                $breakdown[] = new AnalyticsBreakdown($dimension->value, $robot, 0, 0, $hits, $period->getKey());
+            }
+
+            return $breakdown;
         }
 
         $lines = $this->pageViews->countPerValue($dimension->getColumn(), ...[...$this->kept($period), self::BREAKDOWN_LIMIT]);

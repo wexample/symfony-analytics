@@ -4,7 +4,8 @@ namespace Wexample\SymfonyAnalytics\Enum;
 
 /**
  * What the audience is broken down by, each the column of a page viewed it
- * is read from. `total` is the whole period, one row.
+ * is read from. `total` is the whole period, one row; `robot` the robots'
+ * pages, counted apart (AnalyticsRobotDay), their sum alone.
  */
 enum AnalyticsDimension: string
 {
@@ -26,13 +27,16 @@ enum AnalyticsDimension: string
 
     case DEVICE = 'device';
 
+    case ROBOT = 'robot';
+
     /**
-     * The column of `analytics_page_view` its key is, null for the total.
+     * The column of `analytics_page_view` its key is, null for the total and
+     * for the robots, which leave no page viewed.
      */
     public function getColumn(): ?string
     {
         return match ($this) {
-            self::TOTAL => null,
+            self::TOTAL, self::ROBOT => null,
             self::PAGE => 'path',
             self::SOURCE => 'source',
             self::REFERRER => 'referrer_host',

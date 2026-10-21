@@ -1,7 +1,7 @@
 {
   "name": "wexample/symfony-analytics",
   "description": "The audience of a site, counted on the server without cookies: visitors, visits, where they come from, where they are",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "type": "library",
   "license": "MIT",
   "autoload": {

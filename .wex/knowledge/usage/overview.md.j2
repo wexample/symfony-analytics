@@ -19,7 +19,7 @@ Pages viewed are kept `retention_months` (13). Every finished month is summed up
 
 For the holders of `access_role` (ROLE_ADMIN):
 
-- `GET /api/analytics-breakdown/list?dimension=&from=&to=` — `AnalyticsBreakdown` entities, computed, never stored: one line per page, source, referrer, search engine, keyword, campaign, country or device, with its visitors, visits and views; `dimension=total` gives the period as one line. Sorted and paged like any list.
+- `GET /_api/analytics-breakdown/list?dimension=&from=&to=` — `AnalyticsBreakdown` entities, computed, never stored: one line per page, source, referrer, search engine, keyword, campaign, country or device, with its visitors, visits and views; `dimension=total` gives the period as one line. Sorted and paged like any list.
 - Charts (symfony-charts): `analytics-traffic` (visitors, visits, views per day, per month over 92 days) and `analytics-countries` (visits per country, for a map).
 
 symfony-analytics-ds draws them.

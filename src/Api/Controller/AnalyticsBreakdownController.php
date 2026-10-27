@@ -25,7 +25,7 @@ use Wexample\SymfonyHelpers\Controller\AbstractController;
  * AnalyticsDimension; `total` for the period as one line —, sortable and
  * paged: what a table of it reads. The holders of `access_role` only.
  */
-#[Route(path: 'api/analytics-breakdown/', name: 'api_analytics_breakdown_')]
+#[Route(path: '_api/analytics-breakdown/', name: 'api_analytics_breakdown_')]
 class AnalyticsBreakdownController extends AbstractApiController
 {
     final public const string ROUTE_LIST = 'list';

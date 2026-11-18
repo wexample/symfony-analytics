@@ -120,6 +120,30 @@ class AnalyticsTodayService
     }
 
     /**
+     * What is going on now, whole, as the page shows it and the api answers
+     * it — the same shape for its first drawing and each reading after: the
+     * visitors at the site, this hour beside yesterday's, the busiest robot,
+     * the people's latest pages.
+     *
+     * @return array{active: int, active_minutes: int, hour: array{now: int, yesterday: int}, busiest: array{robot: string, suspect: bool, views: int}|null, latest: list<array{viewed_at: string, path: string, source: string, country: string|null}>}
+     */
+    public function summarize(int $latest = 10): array
+    {
+        return [
+            'active' => $this->countActiveVisitors(),
+            'active_minutes' => self::ACTIVE_MINUTES,
+            'hour' => $this->compareHour(),
+            'busiest' => $this->findBusiestRobot(),
+            'latest' => array_map(static fn (PageView $view): array => [
+                'viewed_at' => $view->getViewedAt()->format(DATE_ATOM),
+                'path' => $view->getPath(),
+                'source' => $view->getOrigin()->source->value,
+                'country' => $view->getCountry(),
+            ], $this->findLatestPages($latest)),
+        ];
+    }
+
+    /**
      * @return list<PageView> the people's latest pages, the newest first
      */
     public function findLatestPages(int $limit): array

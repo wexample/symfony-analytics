@@ -1,0 +1,11 @@
+{
+    "name": "assistant",
+    "description": "Generalist assistant, no specialization.",
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "chrome": true,
+    "modes": [
+        "talk",
+        "structured"
+    ]
+}

@@ -13,6 +13,10 @@ enum AnalyticsDimension: string
 
     case PAGE = 'page';
 
+    // The pages by what draws them rather than by their address: one line for
+    // a page whatever its language or its parameters.
+    case ROUTE = 'route';
+
     case SOURCE = 'source';
 
     case REFERRER = 'referrer';
@@ -38,6 +42,7 @@ enum AnalyticsDimension: string
         return match ($this) {
             self::TOTAL, self::ROBOT => null,
             self::PAGE => 'path',
+            self::ROUTE => 'route',
             self::SOURCE => 'source',
             self::REFERRER => 'referrer_host',
             self::SEARCH_ENGINE => 'search_engine',

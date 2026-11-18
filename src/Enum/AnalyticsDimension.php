@@ -6,8 +6,8 @@ namespace Wexample\SymfonyAnalytics\Enum;
  * What the audience is broken down by, each the column of a page viewed it
  * is read from. `total` is the whole period, one row; `robot` the robots by
  * name — a declared one — or by the reason it was caught — a suspected one.
- * A declared robot is summed up per robot and route only: the other
- * dimensions see the people and the suspected robots.
+ * A declared robot is summed up per robot, route and country only: the
+ * other dimensions see the people and the suspected robots.
  */
 enum AnalyticsDimension: string
 {

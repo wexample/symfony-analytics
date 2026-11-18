@@ -13,7 +13,7 @@ Every page falls into one of three audiences (`AnalyticsAudience`):
   - `cadence`: more than `robot_hourly_views` pages within an hour (60, 0 turns it off).
 
   A visitor caught is caught for the day, and the pages it read before crossing the line are moved to it.
-- **declared**: a robot its user agent names (`UserAgentHelper::getRobot()`: GPTBot, ClaudeBot, GoogleOther… then the names Matomo's device-detector knows, `other` for the rest, a missing user agent included). By far the most pages, so not kept one by one: a sum a day per robot and route in `analytics_robot_day`, and a sum per five minutes in `analytics_robot_slot`, kept two days, for the chart of the day.
+- **declared**: a robot its user agent names (`UserAgentHelper::getRobot()`: GPTBot, ClaudeBot, GoogleOther… then the names Matomo's device-detector knows, `other` for the rest, a missing user agent included). By far the most pages, so not kept one by one: a sum a day per robot, route and country in `analytics_robot_day`, and a sum per five minutes in `analytics_robot_slot`, kept two days, for the chart of the day.
 
 The words it counts with:
 
@@ -36,8 +36,8 @@ Every finished month is summed up per audience and dimension (`analytics_monthly
 
 For the holders of `access_role` (ROLE_ADMIN):
 
-- `GET /_api/analytics-breakdown/list?dimension=&audience=&from=&to=` — `AnalyticsBreakdown` entities, computed, never stored: one line per page, route, source, referrer, search engine, keyword, campaign, country, device or robot, with its visitors, visits and views; `dimension=total` gives the period as one line. `audience` is `humans` (by default), `robots` or `all` (`AnalyticsAudienceView`). A declared robot has neither visitor nor visit, and only its robot and route: the other dimensions see the people and the suspected robots. Sorted and paged like any list.
-- Charts (symfony-charts): `analytics-traffic` (the people's visitors, visits, views per day, per month over 92 days), `analytics-composition` (every page read per day, a series per audience, the raw traffic) and `analytics-countries` (the people's visits per country, for a map).
+- `GET /_api/analytics-breakdown/list?dimension=&audience=&from=&to=` — `AnalyticsBreakdown` entities, computed, never stored: one line per page, route, source, referrer, search engine, keyword, campaign, country, device or robot, with its visitors, visits and views; `dimension=total` gives the period as one line. `audience` is `humans` (by default), `robots` or `all` (`AnalyticsAudienceView`). A declared robot has neither visitor nor visit, and only its robot, route and country: the other dimensions see the people and the suspected robots. Sorted and paged like any list.
+- Charts (symfony-charts): `analytics-traffic` (the people's visitors, visits, views per day, per month over 92 days), `analytics-composition` (every page read per day, a series per audience, the raw traffic) and `analytics-countries` (per country, for a map, of the audience its `scope` says: the people's visits by default, the pages read with `robots` or `all`).
 
 What is going on now is told by `AnalyticsTodayService`: the pages per audience a few minutes at a time over the last hours, the visitors active within 30 minutes, the people's pages since the hour began against yesterday's, the busiest robot of the hour, the people's latest pages. Its chart is `analytics-today`, `scope` `24h` (15-minute bars, by default) or `2h` (5-minute bars), whatever the period. `summarize()` gives the rest whole — what the page is drawn with and what `/_api/analytics-today/summary` answers, to the holders of `access_role`, for a page reading it again while it is open.
 

@@ -10,10 +10,10 @@ use Wexample\SymfonyAnalytics\Interface\AnalyticsCountsInterface;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
 
 /**
- * The pages each declared robot read, a sum a day per route. A robot has
+ * The pages each declared robot read, a sum a day per route and country. A robot has
  * neither visitor nor visit: its counts are pages alone.
  *
- * @method AnalyticsRobotDay saveNewAnalyticsRobotDay(DateTimeImmutable $day, string $robot, string $route, int $hits)
+ * @method AnalyticsRobotDay saveNewAnalyticsRobotDay(DateTimeImmutable $day, string $robot, string $route, string $country, int $hits)
  */
 class AnalyticsRobotDayRepository extends AbstractRepository implements AnalyticsCountsInterface
 {
@@ -22,16 +22,16 @@ class AnalyticsRobotDayRepository extends AbstractRepository implements Analytic
     private const string DATE_FORMAT = 'Y-m-d';
 
     /** The columns a robot's day is broken down by. */
-    private const array COLUMNS = ['robot', 'route'];
+    private const array COLUMNS = ['robot', 'route', 'country'];
 
     public static function getEntityClassName(): string
     {
         return AnalyticsRobotDay::class;
     }
 
-    public function createNewAnalyticsRobotDay(DateTimeImmutable $day, string $robot, string $route, int $hits): AnalyticsRobotDay
+    public function createNewAnalyticsRobotDay(DateTimeImmutable $day, string $robot, string $route, string $country, int $hits): AnalyticsRobotDay
     {
-        return new AnalyticsRobotDay($day, $robot, $route, $hits);
+        return new AnalyticsRobotDay($day, $robot, $route, $country, $hits);
     }
 
     public function supportsAudience(AnalyticsAudience $audience): bool
@@ -40,16 +40,18 @@ class AnalyticsRobotDayRepository extends AbstractRepository implements Analytic
     }
 
     /**
-     * One page more for the robot today on the route, in one statement: a
-     * crawler reading several pages at once adds them all, none lost between
-     * a read and a write.
+     * One page more for the robot today on the route from the country, in
+     * one statement: a crawler reading several pages at once adds them all,
+     * none lost between a read and a write.
+     *
+     * @param string $country ISO 3166-1 alpha-2, empty where the address placed nowhere
      */
-    public function countHit(string $robot, string $route, DateTimeImmutable $at): void
+    public function countHit(string $robot, string $route, string $country, DateTimeImmutable $at): void
     {
         $this->getEntityManager()->getConnection()->executeStatement(
-            'INSERT INTO ' . self::TABLE . ' (id, day, robot, route, hits) VALUES (:id, :day, :robot, :route, 1)'
-            . ' ON CONFLICT (day, robot, route) DO UPDATE SET hits = ' . self::TABLE . '.hits + 1',
-            ['id' => (string) Uuid::v7(), 'day' => $at->format(self::DATE_FORMAT), 'robot' => $robot, 'route' => mb_substr($route, 0, 255)]
+            'INSERT INTO ' . self::TABLE . ' (id, day, robot, route, country, hits) VALUES (:id, :day, :robot, :route, :country, 1)'
+            . ' ON CONFLICT (day, robot, route, country) DO UPDATE SET hits = ' . self::TABLE . '.hits + 1',
+            ['id' => (string) Uuid::v7(), 'day' => $at->format(self::DATE_FORMAT), 'robot' => $robot, 'route' => mb_substr($route, 0, 255), 'country' => $country]
         );
     }
 
@@ -89,7 +91,7 @@ class AnalyticsRobotDayRepository extends AbstractRepository implements Analytic
 
     /**
      * Empty for a dimension a robot's day does not have: its pages, its
-     * countries… are not kept.
+     * origins… are not kept.
      */
     public function countPerValue(AnalyticsAudience $audience, string $column, DateTimeImmutable $from, DateTimeImmutable $to, int $limit): array
     {

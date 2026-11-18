@@ -9,15 +9,16 @@ use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotDayRepository;
 use Wexample\SymfonyHelpers\Entity\AbstractEntity;
 
 /**
- * The pages a declared robot read in a day on a route: counted rather than
- * left out, so that the audience says who else reads the site — the AI
- * crawlers first — and what they read. A robot leaves no visit, its pages one
+ * The pages a declared robot read in a day on a route from a country:
+ * counted rather than left out, so that the audience says who else reads the
+ * site — the AI crawlers first —, what they read and from where. A robot leaves no visit, its pages one
  * sum a day per route, kept `robot_retention_months` and then by the month.
- * The route is empty on the days recorded before it was.
+ * The route, and the country, are empty on the days recorded before they
+ * were, and the country where the address placed nowhere.
  */
 #[ORM\Entity(repositoryClass: AnalyticsRobotDayRepository::class)]
 #[ORM\Table(name: 'analytics_robot_day')]
-#[ORM\UniqueConstraint(name: 'analytics_robot_day_key', columns: ['day', 'robot', 'route'])]
+#[ORM\UniqueConstraint(name: 'analytics_robot_day_key', columns: ['day', 'robot', 'route', 'country'])]
 class AnalyticsRobotDay extends AbstractEntity
 {
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
@@ -30,16 +31,21 @@ class AnalyticsRobotDay extends AbstractEntity
     #[ORM\Column(type: Types::STRING, length: 255, options: ['default' => ''])]
     private string $route;
 
+    /** ISO 3166-1 alpha-2. */
+    #[ORM\Column(type: Types::STRING, length: 2, options: ['default' => ''])]
+    private string $country;
+
     #[ORM\Column(type: Types::INTEGER)]
     private int $hits;
 
-    public function __construct(DateTimeImmutable $day, string $robot, string $route, int $hits)
+    public function __construct(DateTimeImmutable $day, string $robot, string $route, string $country, int $hits)
     {
         parent::__construct();
 
         $this->day = $day;
         $this->robot = $robot;
         $this->route = $route;
+        $this->country = $country;
         $this->hits = $hits;
     }
 
@@ -56,6 +62,11 @@ class AnalyticsRobotDay extends AbstractEntity
     public function getRoute(): string
     {
         return $this->route;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->country;
     }
 
     public function getHits(): int

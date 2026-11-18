@@ -24,7 +24,7 @@ use Wexample\SymfonyGeo\Interface\IpLocatorInterface;
  * visit of an account running the site (`excluded_roles`). Nothing runs in
  * the browser.
  *
- * A robot naming itself is counted apart, a sum a day per robot and route
+ * A robot naming itself is counted apart, a sum a day per robot, route and country
  * (`robot_retention_months`, 0 to leave it out), and per five minutes for
  * the day's chart. A browser's user agent
  * reading as no person does — without a browser's headers, faster than
@@ -73,7 +73,12 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
 
         if (null !== $robot = UserAgentHelper::getRobot($userAgent)) {
             if ($this->robotRetentionMonths > 0) {
-                $this->robotDays->countHit($robot, (string) $request->attributes->get('_route'), $now);
+                $this->robotDays->countHit(
+                    $robot,
+                    (string) $request->attributes->get('_route'),
+                    (string) $this->ipLocator?->locateCountry((string) $request->getClientIp()),
+                    $now
+                );
                 $this->robotSlots->countHit($robot, $now);
             }
 

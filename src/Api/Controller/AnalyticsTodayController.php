@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyAnalytics\Api\Controller;
 
-use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Symfony\Component\Routing\Attribute\Route;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsTodayService;
+use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Wexample\SymfonyApi\Api\Class\ApiResponse;
 use Wexample\SymfonyApi\Api\Controller\AbstractApiController;
 use Wexample\SymfonyHelpers\Controller\AbstractController;

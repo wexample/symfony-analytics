@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyAnalytics\Api\Controller;
 
-use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
@@ -13,6 +12,7 @@ use Wexample\SymfonyAnalytics\Enum\AnalyticsAudienceView;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsStatsService;
+use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Wexample\SymfonyApi\Api\Attribute\ApiResponseData;
 use Wexample\SymfonyApi\Api\Attribute\QueryOption\LengthQueryOption;
 use Wexample\SymfonyApi\Api\Attribute\QueryOption\PageQueryOption;

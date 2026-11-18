@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyAnalytics\Api\Controller;
 
+use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Symfony\Component\Routing\Attribute\Route;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsTodayService;
@@ -15,6 +16,7 @@ use Wexample\SymfonyHelpers\Controller\AbstractController;
  * only.
  */
 #[Route(path: '_api/analytics-today/', name: 'api_analytics_today_')]
+#[ApiAccess(ApiAccess::CONTROLLER, "wexample_symfony_analytics.access_role, checked by AnalyticsAccessService")]
 class AnalyticsTodayController extends AbstractApiController
 {
     final public const string ROUTE_SUMMARY = 'summary';

@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyAnalytics\Api\Controller;
 
+use Wexample\SymfonyApi\Api\Attribute\ApiAccess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
@@ -28,6 +29,7 @@ use Wexample\SymfonyHelpers\Controller\AbstractController;
  * paged: what a table of it reads. The holders of `access_role` only.
  */
 #[Route(path: '_api/analytics-breakdown/', name: 'api_analytics_breakdown_')]
+#[ApiAccess(ApiAccess::CONTROLLER, "wexample_symfony_analytics.access_role, checked by AnalyticsAccessService")]
 class AnalyticsBreakdownController extends AbstractApiController
 {
     final public const string ROUTE_LIST = 'list';

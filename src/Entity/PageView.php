@@ -20,6 +20,9 @@ use Wexample\SymfonyHelpers\Entity\AbstractEntity;
  * day, and the address is never kept — no cookie, nothing to consent to.
  * A visit is the run of pages a visitor reads without a pause longer than
  * `visit_timeout`; every page of it carries the origin of its first one.
+ *
+ * A suspected robot is kept the same way, the reason it was caught in
+ * `robot`: a browser's user agent reading as no person does.
  */
 #[ORM\Entity(repositoryClass: PageViewRepository::class)]
 #[ORM\Table(name: 'analytics_page_view')]
@@ -67,6 +70,10 @@ class PageView extends AbstractEntity
     #[ORM\Column(type: Types::STRING, length: 16, enumType: DeviceType::class)]
     private DeviceType $device;
 
+    /** Null for a person; for a suspected robot, why (UserAgentHelper::ROBOT_*). */
+    #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
+    private ?string $robot;
+
     public function __construct(
         string $visitorId,
         string $visitId,
@@ -77,6 +84,7 @@ class PageView extends AbstractEntity
         TrafficOrigin $origin,
         ?string $country,
         DeviceType $device,
+        ?string $robot,
     ) {
         parent::__construct();
 
@@ -93,6 +101,7 @@ class PageView extends AbstractEntity
         $this->campaign = $origin->campaign;
         $this->country = $country;
         $this->device = $device;
+        $this->robot = $robot;
     }
 
     public function getVisitorId(): string
@@ -141,5 +150,10 @@ class PageView extends AbstractEntity
     public function getDevice(): DeviceType
     {
         return $this->device;
+    }
+
+    public function getRobot(): ?string
+    {
+        return $this->robot;
     }
 }

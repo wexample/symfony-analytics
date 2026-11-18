@@ -44,6 +44,22 @@ class UserAgentHelperTest extends TestCase
         $this->assertNull(UserAgentHelper::getRobot(self::IPHONE));
     }
 
+    public function testARobotOnlyDeviceDetectorKnowsIsNamed(): void
+    {
+        // No word of the generic pattern in it.
+        $this->assertSame('Yeti/Naverbot', UserAgentHelper::getRobot('Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/spd)'));
+    }
+
+    public function testABrowserWithoutItsHeadersIsARobot(): void
+    {
+        $chrome = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+
+        $this->assertNull(UserAgentHelper::getHeadersRobot($chrome, 'fr-FR,fr;q=0.9', 'navigate'));
+        $this->assertNull(UserAgentHelper::getHeadersRobot(self::FIREFOX, 'en-US,en;q=0.5', null));
+        $this->assertSame(UserAgentHelper::ROBOT_HEADERS, UserAgentHelper::getHeadersRobot(self::FIREFOX, null, 'navigate'));
+        $this->assertSame(UserAgentHelper::ROBOT_HEADERS, UserAgentHelper::getHeadersRobot($chrome, 'fr-FR', null));
+    }
+
     public function testTheDevice(): void
     {
         $this->assertSame(DeviceType::DESKTOP, UserAgentHelper::getDevice(self::FIREFOX));

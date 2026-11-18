@@ -22,7 +22,7 @@ class AnalyticsMaintainCommand extends Command
     {
         $result = $this->maintenance->maintain();
 
-        new SymfonyStyle($input, $output)->success(sprintf('%d month(s) summed up, %d page view(s) deleted.', $result['months'], $result['deleted']));
+        new SymfonyStyle($input, $output)->success(sprintf('%d month(s) summed up, %d line(s) deleted.', $result['months'], $result['deleted']));
 
         return Command::SUCCESS;
     }

@@ -3,135 +3,227 @@ en:
     visitors: Visitors
     visits: Visits
     views: Pages viewed
+  audience:
+    human: 'People'
+    suspect: 'Suspected robots'
+    declared: 'Declared robots'
 
 fr:
   metric:
     visitors: Visiteurs
     visits: Visites
     views: Pages vues
+  audience:
+    human: 'Personnes'
+    suspect: 'Robots suspectés'
+    declared: 'Robots déclarés'
 
 zh:
   metric:
     visitors: 访客
     visits: 访问次数
     views: 浏览页面
+  audience:
+    human: '访客'
+    suspect: '疑似机器人'
+    declared: '声明的机器人'
 
 ar:
   metric:
     visitors: الزوار
     visits: الزيارات
     views: 'الصفحات المعروضة'
+  audience:
+    human: 'أشخاص'
+    suspect: 'روبوتات مشتبه بها'
+    declared: 'روبوتات معلنة'
 
 hi:
   metric:
     visitors: दर्शक
     visits: दौरे
     views: 'पृष्ठ देखे गए'
+  audience:
+    human: 'लोग'
+    suspect: 'संदिग्ध रोबोट'
+    declared: 'घोषित रोबोट'
 
 he:
   metric:
     visitors: מבקרים
     visits: ביקורים
     views: 'עמודים נצפים'
+  audience:
+    human: 'אנשים'
+    suspect: 'רובוטים חשודים'
+    declared: 'רובוטים מוצהרים'
 
 fa:
   metric:
     visitors: بازدیدکنندگان
     visits: بازدیدها
     views: 'صفحات مشاهده شده'
+  audience:
+    human: 'افراد'
+    suspect: 'ربات‌های مشکوک'
+    declared: 'ربات‌های اعلام‌شده'
 
 ur:
   metric:
     visitors: 'زیارت کرنے والے'
     visits: زیارتیں
     views: 'دیکھے گئے صفحات'
+  audience:
+    human: 'لوگ'
+    suspect: 'مشتبہ روبوٹ'
+    declared: 'اعلان کردہ روبوٹ'
 
 ja:
   metric:
     visitors: 訪問者
     visits: 訪問数
     views: ページビュー
+  audience:
+    human: '人'
+    suspect: '疑わしいロボット'
+    declared: '申告されたロボット'
 
 ko:
   metric:
     visitors: 방문자
     visits: '방문 수'
     views: '조회된 페이지'
+  audience:
+    human: '사람'
+    suspect: '의심되는 로봇'
+    declared: '신고된 로봇'
 
 bn:
   metric:
     visitors: ভিজিটরস
     visits: ভিজিটস
     views: 'পৃষ্ঠাসমূহ দেখা হয়েছে'
+  audience:
+    human: 'মানুষ'
+    suspect: 'সন্দেহভাজন রোবট'
+    declared: 'ঘোষিত রোবট'
 
 th:
   metric:
     visitors: ผู้เยี่ยมชม
     visits: การเข้าชม
     views: หน้าที่ถูกดู
+  audience:
+    human: 'ผู้คน'
+    suspect: 'หุ่นยนต์ที่น่าสงสัย'
+    declared: 'หุ่นยนต์ที่ระบุตัว'
 
 de:
   metric:
     visitors: Besucher
     visits: Besuche
     views: Seitenaufrufe
+  audience:
+    human: 'Personen'
+    suspect: 'Verdächtige Roboter'
+    declared: 'Deklarierte Roboter'
 
 fi:
   metric:
     visitors: Kävijät
     visits: Vierailut
     views: 'Näytetyt sivut'
+  audience:
+    human: 'Ihmiset'
+    suspect: 'Epäillyt robotit'
+    declared: 'Ilmoitetut robotit'
 
 ru:
   metric:
     visitors: Посетители
     visits: Визиты
     views: 'Просмотренные страницы'
+  audience:
+    human: 'Люди'
+    suspect: 'Подозрительные роботы'
+    declared: 'Заявленные роботы'
 
 pl:
   metric:
     visitors: Odwiedzający
     visits: Wizyty
     views: 'Wyświetlone strony'
+  audience:
+    human: 'Ludzie'
+    suspect: 'Podejrzane roboty'
+    declared: 'Zadeklarowane roboty'
 
 es:
   metric:
     visitors: Visitantes
     visits: Visitas
     views: 'Páginas vistas'
+  audience:
+    human: 'Personas'
+    suspect: 'Robots sospechosos'
+    declared: 'Robots declarados'
 
 it:
   metric:
     visitors: Visitatori
     visits: Visite
     views: 'Pagine visualizzate'
+  audience:
+    human: 'Persone'
+    suspect: 'Robot sospetti'
+    declared: 'Robot dichiarati'
 
 pt_BR:
   metric:
     visitors: Visitantes
     visits: Visitas
     views: 'Páginas visualizadas'
+  audience:
+    human: 'Pessoas'
+    suspect: 'Robôs suspeitos'
+    declared: 'Robôs declarados'
 
 tr:
   metric:
     visitors: Ziyaretçiler
     visits: Ziyaretler
     views: 'Görüntülenen sayfalar'
+  audience:
+    human: 'Kişiler'
+    suspect: 'Şüpheli robotlar'
+    declared: 'Beyan edilen robotlar'
 
 vi:
   metric:
     visitors: 'Khách truy cập'
     visits: 'Lượt truy cập'
     views: 'Số trang đã xem'
+  audience:
+    human: 'Người'
+    suspect: 'Robot đáng ngờ'
+    declared: 'Robot tự khai báo'
 
 id:
   metric:
     visitors: Pengunjung
     visits: Kunjungan
     views: 'Halaman yang dilihat'
+  audience:
+    human: 'Orang'
+    suspect: 'Robot yang dicurigai'
+    declared: 'Robot yang dideklarasikan'
 
 nl:
   metric:
     visitors: Bezoekers
     visits: Bezoeken
     views: "Pagina's bekeken"
+  audience:
+    human: 'Personen'
+    suspect: 'Verdachte robots'
+    declared: 'Aangegeven robots'

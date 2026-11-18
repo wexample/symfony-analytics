@@ -5,16 +5,19 @@ namespace Wexample\SymfonyAnalytics\Repository;
 use DateTimeImmutable;
 use Wexample\SymfonyAnalytics\Class\TrafficOrigin;
 use Wexample\SymfonyAnalytics\Entity\PageView;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
 use Wexample\SymfonyAnalytics\Enum\DeviceType;
+use Wexample\SymfonyAnalytics\Interface\AnalyticsCountsInterface;
 use Wexample\SymfonyHelpers\Repository\AbstractRepository;
 
 /**
  * The pages viewed, and what they add up to: counted in the database, a
- * visitor and a visit once each however many pages they read.
+ * visitor and a visit once each however many pages they read. The people's
+ * and the suspected robots', told apart by `robot`.
  *
- * @method PageView saveNewPageView(string $visitorId, string $visitId, DateTimeImmutable $viewedAt, string $path, ?string $route, ?string $locale, TrafficOrigin $origin, ?string $country, DeviceType $device)
+ * @method PageView saveNewPageView(string $visitorId, string $visitId, DateTimeImmutable $viewedAt, string $path, ?string $route, ?string $locale, TrafficOrigin $origin, ?string $country, DeviceType $device, ?string $robot)
  */
-class PageViewRepository extends AbstractRepository
+class PageViewRepository extends AbstractRepository implements AnalyticsCountsInterface
 {
     private const string TABLE = 'analytics_page_view';
 
@@ -37,8 +40,14 @@ class PageViewRepository extends AbstractRepository
         TrafficOrigin $origin,
         ?string $country,
         DeviceType $device,
+        ?string $robot,
     ): PageView {
-        return new PageView($visitorId, $visitId, $viewedAt, $path, $route, $locale, $origin, $country, $device);
+        return new PageView($visitorId, $visitId, $viewedAt, $path, $route, $locale, $origin, $country, $device, $robot);
+    }
+
+    public function supportsAudience(AnalyticsAudience $audience): bool
+    {
+        return $audience->hasPageViews();
     }
 
     /**
@@ -68,6 +77,32 @@ class PageViewRepository extends AbstractRepository
         );
     }
 
+    /**
+     * Why the visitor was caught as a robot today, null while it reads as a
+     * person: a visitor is someone else the next day.
+     */
+    public function findRobotOfVisitor(string $visitorId): ?string
+    {
+        $robot = $this->getEntityManager()->getConnection()->fetchOne(
+            'SELECT robot FROM ' . self::TABLE . ' WHERE visitor_id = :visitor AND robot IS NOT NULL LIMIT 1',
+            ['visitor' => $visitorId]
+        );
+
+        return false === $robot ? null : $robot;
+    }
+
+    /**
+     * The visitor's pages read as a person's turned into a robot's: the ones
+     * before it crossed the line it was caught at.
+     */
+    public function markVisitorRobot(string $visitorId, string $robot): void
+    {
+        $this->getEntityManager()->getConnection()->executeStatement(
+            'UPDATE ' . self::TABLE . ' SET robot = :robot WHERE visitor_id = :visitor AND robot IS NULL',
+            ['robot' => $robot, 'visitor' => $visitorId]
+        );
+    }
+
     public function findOldestDate(): ?DateTimeImmutable
     {
         $oldest = $this->getEntityManager()->getConnection()->fetchOne('SELECT MIN(viewed_at) FROM ' . self::TABLE);
@@ -75,31 +110,24 @@ class PageViewRepository extends AbstractRepository
         return $oldest ? new DateTimeImmutable($oldest) : null;
     }
 
-    /**
-     * @return array{visitors: int, visits: int, views: int}
-     */
-    public function countTotals(DateTimeImmutable $from, DateTimeImmutable $to): array
+    public function countTotals(AnalyticsAudience $audience, DateTimeImmutable $from, DateTimeImmutable $to): array
     {
         $row = $this->getEntityManager()->getConnection()->fetchAssociative(
-            'SELECT ' . self::COUNTS . ' FROM ' . self::TABLE . ' WHERE viewed_at >= :from AND viewed_at < :to',
+            'SELECT ' . self::COUNTS . ' FROM ' . self::TABLE . ' WHERE viewed_at >= :from AND viewed_at < :to AND ' . self::audienceCondition($audience),
             $this->bounds($from, $to)
         ) ?: [];
 
         return self::counts($row);
     }
 
-    /**
-     * The counts per day (`Y-m-d`) or per month (`Y-m`), the oldest first.
-     *
-     * @return array<string, array{visitors: int, visits: int, views: int}>
-     */
-    public function countPerBucket(DateTimeImmutable $from, DateTimeImmutable $to, bool $daily): array
+    public function countPerBucket(AnalyticsAudience $audience, DateTimeImmutable $from, DateTimeImmutable $to, bool $daily): array
     {
         // The date written out and cut: the same SQL on PostgreSQL and SQLite.
         $bucket = 'SUBSTR(CAST(viewed_at AS VARCHAR(19)), 1, ' . ($daily ? 10 : 7) . ')';
         $rows = $this->getEntityManager()->getConnection()->fetchAllAssociative(
             'SELECT ' . $bucket . ' AS bucket, ' . self::COUNTS . ' FROM ' . self::TABLE
-            . ' WHERE viewed_at >= :from AND viewed_at < :to GROUP BY ' . $bucket . ' ORDER BY bucket',
+            . ' WHERE viewed_at >= :from AND viewed_at < :to AND ' . self::audienceCondition($audience)
+            . ' GROUP BY ' . $bucket . ' ORDER BY bucket',
             $this->bounds($from, $to)
         );
 
@@ -112,18 +140,11 @@ class PageViewRepository extends AbstractRepository
         return $buckets;
     }
 
-    /**
-     * The counts per value of a column, the most visited first; a page viewed
-     * without a value there — no referrer, no country — is left out.
-     *
-     * @param string $column one of AnalyticsDimension::getColumn(), never a visitor's input
-     * @return array<string, array{visitors: int, visits: int, views: int}>
-     */
-    public function countPerValue(string $column, DateTimeImmutable $from, DateTimeImmutable $to, int $limit): array
+    public function countPerValue(AnalyticsAudience $audience, string $column, DateTimeImmutable $from, DateTimeImmutable $to, int $limit): array
     {
         $rows = $this->getEntityManager()->getConnection()->fetchAllAssociative(
             'SELECT ' . $column . ' AS dimension_key, ' . self::COUNTS . ' FROM ' . self::TABLE
-            . ' WHERE viewed_at >= :from AND viewed_at < :to AND ' . $column . ' IS NOT NULL'
+            . ' WHERE viewed_at >= :from AND viewed_at < :to AND ' . $column . ' IS NOT NULL AND ' . self::audienceCondition($audience)
             . ' GROUP BY ' . $column . ' ORDER BY visits DESC, views DESC LIMIT ' . $limit,
             $this->bounds($from, $to)
         );
@@ -137,12 +158,17 @@ class PageViewRepository extends AbstractRepository
         return $values;
     }
 
-    public function deleteBefore(DateTimeImmutable $date): int
+    public function deleteBefore(AnalyticsAudience $audience, DateTimeImmutable $date): int
     {
         return (int) $this->getEntityManager()->getConnection()->executeStatement(
-            'DELETE FROM ' . self::TABLE . ' WHERE viewed_at < :date',
+            'DELETE FROM ' . self::TABLE . ' WHERE viewed_at < :date AND ' . self::audienceCondition($audience),
             ['date' => $date->format(self::DATE_FORMAT)]
         );
+    }
+
+    private static function audienceCondition(AnalyticsAudience $audience): string
+    {
+        return AnalyticsAudience::HUMAN === $audience ? 'robot IS NULL' : 'robot IS NOT NULL';
     }
 
     /**

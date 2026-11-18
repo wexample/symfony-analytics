@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Wexample\SymfonyAnalytics\Class\AnalyticsPeriod;
 use Wexample\SymfonyAnalytics\Entity\AnalyticsBreakdown;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsStatsService;
@@ -13,7 +14,7 @@ use Wexample\SymfonyCharts\Helper\ChartPointHelper;
 use Wexample\SymfonyCharts\Interface\ChartPointProviderInterface;
 
 /**
- * The visits of the period per country, for a world map: the categories are
+ * The people's visits of the period per country, for a world map: the categories are
  * ISO 3166-1 alpha-2 codes, which the map names in the page's language.
  */
 class AnalyticsCountriesChartPointProvider implements ChartPointProviderInterface
@@ -36,7 +37,8 @@ class AnalyticsCountriesChartPointProvider implements ChartPointProviderInterfac
 
         $lines = $this->stats->getBreakdown(
             AnalyticsDimension::COUNTRY,
-            AnalyticsPeriod::fromQuery($request->query->get('from'), $request->query->get('to'))
+            AnalyticsPeriod::fromQuery($request->query->get('from'), $request->query->get('to')),
+            [AnalyticsAudience::HUMAN]
         );
 
         return ChartPointHelper::seriesFromList(

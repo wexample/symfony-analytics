@@ -2,19 +2,19 @@
 
 namespace Wexample\SymfonyAnalytics\Service\ChartPoint;
 
-use DateTimeImmutable;
-use IntlDateFormatter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Wexample\SymfonyAnalytics\Class\AnalyticsPeriod;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
+use Wexample\SymfonyAnalytics\Helper\AnalyticsChartHelper;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsStatsService;
 use Wexample\SymfonyCharts\Helper\ChartPointHelper;
 use Wexample\SymfonyCharts\Interface\ChartPointProviderInterface;
 
 /**
- * Visitors, visits and pages viewed along the period: day by day, or month
- * by month over a long one.
+ * The people's visitors, visits and pages viewed along the period: day by
+ * day, or month by month over a long one.
  */
 class AnalyticsTrafficChartPointProvider implements ChartPointProviderInterface
 {
@@ -37,12 +37,8 @@ class AnalyticsTrafficChartPointProvider implements ChartPointProviderInterface
         $this->access->denyUnlessGranted();
 
         $period = AnalyticsPeriod::fromQuery($request->query->get('from'), $request->query->get('to'));
-        $series = $this->stats->getSeries($period);
-        $formatter = new IntlDateFormatter($request->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $period->isDaily() ? 'd MMM' : 'MMM y');
-        $categories = array_map(
-            static fn (string $key): string => (string) $formatter->format(new DateTimeImmutable(strlen($key) === 7 ? $key . '-01' : $key)),
-            array_keys($series)
-        );
+        $series = $this->stats->getSeries($period, [AnalyticsAudience::HUMAN]);
+        $categories = AnalyticsChartHelper::getCategories($period, array_keys($series), $request->getLocale());
 
         $points = [];
 

@@ -1,10 +1,21 @@
-`wexample/symfony-analytics` counts the audience of a site on the server: visitors, visits, pages viewed, where visits come from, from which country, on which device. Nothing runs in the browser and nothing is left on it.
+`wexample/symfony-analytics` counts the audience of a site on the server: visitors, visits, pages viewed, where visits come from, from which country, on which device. Nothing runs in the browser and nothing is left on it. The robots are counted too, apart from the people: what reads the site is worth knowing, not only who.
 
 ## What is counted
 
 `PageViewRecordSubscriber` records a page once its response has left (`kernel.terminate`): a GET answered with HTML, neither XHR nor prefetch, outside `/_`, not from an account of `excluded_roles` (the administrators by default).
 
-A robot's page is counted apart, in `analytics_robot_day` (`AnalyticsRobotDay`): a sum a day per robot, kept like the months, read as the `robot` dimension of the breakdown — its pages alone, a robot having neither visitor nor visit. A robot is one its user agent names (`UserAgentHelper::getRobot()`: GPTBot, ClaudeBot, GoogleOther, Googlebot…, `other` for the rest, a missing user agent included), or a visitor reading more than `robot_hourly_views` pages within an hour (60 by default, 0 turns it off), counted as `cadence`: a crawler dressed as a browser, which no user agent gives away. The pages it read before crossing the line stay in the audience.
+Every page falls into one of three audiences (`AnalyticsAudience`):
+
+- **human**: a person, kept in `analytics_page_view`.
+- **suspect**: a browser's user agent reading as no person does, kept in `analytics_page_view` as well, with the reason in its `robot` column:
+  - `headers`: no `Accept-Language`, or a recent Chromium without `Sec-Fetch-Mode` — a script dressed as a browser;
+  - `burst`: more than `robot_minute_views` pages within a minute (15 by default, 0 turns it off);
+  - `cadence`: more than `robot_hourly_views` pages within an hour (60, 0 turns it off).
+
+  A visitor caught is caught for the day, and the pages it read before crossing the line are moved to it.
+- **declared**: a robot its user agent names (`UserAgentHelper::getRobot()`: GPTBot, ClaudeBot, GoogleOther… then the names Matomo's device-detector knows, `other` for the rest, a missing user agent included). By far the most pages, so not kept one by one: a sum a day per robot and route in `analytics_robot_day`.
+
+The words it counts with:
 
 - **Visitor**: a hash of the address and the user agent under the kernel secret and the day — no cookie, nothing reversible kept, someone else the next day. A period of several days counts a returning person once per day.
 - **Visit**: the run of pages of a visitor without a pause longer than `visit_timeout` (30 minutes); each page carries the origin of the first.
@@ -13,14 +24,20 @@ A robot's page is counted apart, in `analytics_robot_day` (`AnalyticsRobotDay`):
 
 ## Keeping
 
-Pages viewed are kept `retention_months` (13). Every finished month is summed up per dimension (`analytics_monthly`, its first 1000 lines per dimension) as soon as it is over; the pages older than the retention are then deleted. A period reaching back past it is read month by month from the sums. `analytics:maintain` does both; the bundle runs it by itself once a day after a response (`auto_maintenance`).
+Every finished month is summed up per audience and dimension (`analytics_monthly`, its first 1000 lines per dimension) as soon as it is over. Each audience is then kept day by day for its own retention, and read month by month from the sums before that:
+
+- the people's pages `retention_months` (13);
+- the suspected robots' pages `suspect_retention_months` (1);
+- the declared robots' days `robot_retention_months` (3; 0 does not record them at all).
+
+`analytics:maintain` does both; the bundle runs it by itself once a day after a response (`auto_maintenance`). `AnalyticsStorageService::getSizes()` tells what the tables weigh, on PostgreSQL.
 
 ## Reading
 
 For the holders of `access_role` (ROLE_ADMIN):
 
-- `GET /_api/analytics-breakdown/list?dimension=&from=&to=` — `AnalyticsBreakdown` entities, computed, never stored: one line per page, route, source, referrer, search engine, keyword, campaign, country or device, with its visitors, visits and views; `dimension=total` gives the period as one line. Sorted and paged like any list.
-- Charts (symfony-charts): `analytics-traffic` (visitors, visits, views per day, per month over 92 days) and `analytics-countries` (visits per country, for a map).
+- `GET /_api/analytics-breakdown/list?dimension=&audience=&from=&to=` — `AnalyticsBreakdown` entities, computed, never stored: one line per page, route, source, referrer, search engine, keyword, campaign, country, device or robot, with its visitors, visits and views; `dimension=total` gives the period as one line. `audience` is `humans` (by default), `robots` or `all` (`AnalyticsAudienceView`). A declared robot has neither visitor nor visit, and only its robot and route: the other dimensions see the people and the suspected robots. Sorted and paged like any list.
+- Charts (symfony-charts): `analytics-traffic` (the people's visitors, visits, views per day, per month over 92 days), `analytics-composition` (every page read per day, a series per audience, the raw traffic) and `analytics-countries` (the people's visits per country, for a map).
 
 symfony-analytics-ds draws them.
 
@@ -29,5 +46,9 @@ wexample_symfony_analytics:
   access_role: ROLE_ADMIN
   excluded_roles: [ROLE_ADMIN]
   visit_timeout: 30
+  robot_minute_views: 15
+  robot_hourly_views: 60
   retention_months: 13
+  suspect_retention_months: 1
+  robot_retention_months: 3
 ```

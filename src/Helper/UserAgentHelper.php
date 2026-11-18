@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyAnalytics\Helper;
 
+use DeviceDetector\Parser\Bot;
 use Wexample\SymfonyAnalytics\Enum\DeviceType;
 
 /**
@@ -13,8 +14,17 @@ final class UserAgentHelper
     /** A robot no name below fits, or a request saying nothing of itself. */
     public const string ROBOT_OTHER = 'other';
 
-    /** A visitor reading faster than a person: no user agent gave it away. */
+    /** A visitor reading more pages within an hour than a person does. */
     public const string ROBOT_CADENCE = 'cadence';
+
+    /** A visitor reading more pages within a minute than a person does. */
+    public const string ROBOT_BURST = 'burst';
+
+    /** A browser's user agent without the headers every browser sends. */
+    public const string ROBOT_HEADERS = 'headers';
+
+    /** From this version on, a Chromium browser sends `Sec-Fetch-Mode` on every page it opens. */
+    private const int CHROMIUM_SEC_FETCH_VERSION = 80;
 
     private const string ROBOT = '/bot|crawl|spider|slurp|scrap|fetch|preview|headless|lighthouse|pingdom|uptime|monitor|curl|wget|python|java\/|go-http|okhttp|axios|node-fetch|httpclient|libwww|facebookexternalhit|embedly|whatsapp|telegram|discord|chatgpt|openai|claude|anthropic|perplexity|bytespider|ccbot|google-|googleother|adsbot|mediapartners|feedfetcher|meta-externalagent|amazonbot|applebot|yandex|baidu|semrush|ahrefs|mj12|dotbot|petalbot|dataforseo|ia_archiver/i';
 
@@ -57,8 +67,9 @@ final class UserAgentHelper
     }
 
     /**
-     * The robot asking, by its name — `other` for one with none of the
-     * names above, or with no user agent at all —, null for a person.
+     * The robot asking, by its name — the ones above first, then the ones
+     * Matomo's device-detector knows, `other` for one with no name at all or
+     * no user agent —, null for a person.
      */
     public static function getRobot(?string $userAgent): ?string
     {
@@ -66,17 +77,46 @@ final class UserAgentHelper
             return self::ROBOT_OTHER;
         }
 
-        if (1 !== preg_match(self::ROBOT, $userAgent)) {
-            return null;
-        }
+        $generic = 1 === preg_match(self::ROBOT, $userAgent);
 
-        foreach (self::NAMED as $name => $token) {
-            if (false !== stripos($userAgent, $token)) {
-                return $name;
+        if ($generic) {
+            foreach (self::NAMED as $name => $token) {
+                if (false !== stripos($userAgent, $token)) {
+                    return $name;
+                }
             }
         }
 
-        return self::ROBOT_OTHER;
+        $parser = new Bot($userAgent);
+        $known = $parser->parse()['name'] ?? null;
+
+        if (is_string($known) && '' !== $known) {
+            return $known;
+        }
+
+        return $generic ? self::ROBOT_OTHER : null;
+    }
+
+    /**
+     * `headers` for a page asked by a browser's user agent without what
+     * every browser sends when it opens one — the languages its reader
+     * accepts, and for a recent Chromium its `Sec-Fetch-Mode` —, null
+     * otherwise: a script dressed as a browser, which the user agent alone
+     * does not give away.
+     */
+    public static function getHeadersRobot(?string $userAgent, ?string $acceptLanguage, ?string $secFetchMode): ?string
+    {
+        if (null === $acceptLanguage || '' === trim($acceptLanguage)) {
+            return self::ROBOT_HEADERS;
+        }
+
+        if (null === $secFetchMode
+            && 1 === preg_match('/Chrome\/(\d+)/', (string) $userAgent, $matches)
+            && (int) $matches[1] >= self::CHROMIUM_SEC_FETCH_VERSION) {
+            return self::ROBOT_HEADERS;
+        }
+
+        return null;
     }
 
     public static function getDevice(?string $userAgent): DeviceType

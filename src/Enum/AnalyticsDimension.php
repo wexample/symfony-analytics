@@ -4,8 +4,10 @@ namespace Wexample\SymfonyAnalytics\Enum;
 
 /**
  * What the audience is broken down by, each the column of a page viewed it
- * is read from. `total` is the whole period, one row; `robot` the robots'
- * pages, counted apart (AnalyticsRobotDay), their sum alone.
+ * is read from. `total` is the whole period, one row; `robot` the robots by
+ * name — a declared one — or by the reason it was caught — a suspected one.
+ * A declared robot is summed up per robot and route only: the other
+ * dimensions see the people and the suspected robots.
  */
 enum AnalyticsDimension: string
 {
@@ -34,13 +36,14 @@ enum AnalyticsDimension: string
     case ROBOT = 'robot';
 
     /**
-     * The column of `analytics_page_view` its key is, null for the total and
-     * for the robots, which leave no page viewed.
+     * The column of `analytics_page_view` its key is, null for the total.
+     * `robot` and `route` are columns of `analytics_robot_day` too.
      */
     public function getColumn(): ?string
     {
         return match ($this) {
-            self::TOTAL, self::ROBOT => null,
+            self::TOTAL => null,
+            self::ROBOT => 'robot',
             self::PAGE => 'path',
             self::ROUTE => 'route',
             self::SOURCE => 'source',

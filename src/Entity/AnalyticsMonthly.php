@@ -5,6 +5,7 @@ namespace Wexample\SymfonyAnalytics\Entity;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsMonthlyRepository;
 use Wexample\SymfonyHelpers\Entity\AbstractEntity;
@@ -12,16 +13,21 @@ use Wexample\SymfonyHelpers\Entity\AbstractEntity;
 /**
  * A finished month, summed up per dimension: what is left of the audience
  * once its pages viewed are past `retention_months` and deleted. Visitors are
- * the month's own, which months added together count twice over.
+ * the month's own, which months added together count twice over. Each
+ * audience has its own lines; a declared robot only `total`, `robot` and
+ * `route`, its views alone.
  */
 #[ORM\Entity(repositoryClass: AnalyticsMonthlyRepository::class)]
 #[ORM\Table(name: 'analytics_monthly')]
-#[ORM\UniqueConstraint(name: 'analytics_monthly_key', columns: ['month', 'dimension', 'dimension_key'])]
+#[ORM\UniqueConstraint(name: 'analytics_monthly_key', columns: ['month', 'audience', 'dimension', 'dimension_key'])]
 class AnalyticsMonthly extends AbstractEntity
 {
     /** Its first day. */
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private DateTimeImmutable $month;
+
+    #[ORM\Column(type: Types::STRING, length: 16, enumType: AnalyticsAudience::class, options: ['default' => 'human'])]
+    private AnalyticsAudience $audience;
 
     #[ORM\Column(type: Types::STRING, length: 32, enumType: AnalyticsDimension::class)]
     private AnalyticsDimension $dimension;
@@ -41,6 +47,7 @@ class AnalyticsMonthly extends AbstractEntity
 
     public function __construct(
         DateTimeImmutable $month,
+        AnalyticsAudience $audience,
         AnalyticsDimension $dimension,
         string $dimensionKey,
         int $visitors,
@@ -50,6 +57,7 @@ class AnalyticsMonthly extends AbstractEntity
         parent::__construct();
 
         $this->month = $month;
+        $this->audience = $audience;
         $this->dimension = $dimension;
         $this->dimensionKey = $dimensionKey;
         $this->visitors = $visitors;
@@ -60,6 +68,11 @@ class AnalyticsMonthly extends AbstractEntity
     public function getMonth(): DateTimeImmutable
     {
         return $this->month;
+    }
+
+    public function getAudience(): AnalyticsAudience
+    {
+        return $this->audience;
     }
 
     public function getDimension(): AnalyticsDimension

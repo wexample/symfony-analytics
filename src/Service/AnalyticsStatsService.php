@@ -6,16 +6,19 @@ use DateTimeImmutable;
 use Wexample\SymfonyAnalytics\Class\AnalyticsPeriod;
 use Wexample\SymfonyAnalytics\Entity\AnalyticsBreakdown;
 use Wexample\SymfonyAnalytics\Entity\AnalyticsMonthly;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
+use Wexample\SymfonyAnalytics\Interface\AnalyticsCountsInterface;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsMonthlyRepository;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotDayRepository;
 use Wexample\SymfonyAnalytics\Repository\PageViewRepository;
 
 /**
- * The audience of a period: its totals, its course, its breakdowns. Read from
- * the pages viewed where they are kept, and from the months summed up before
- * that (`retention_months`), which a part of the period reaching back there
- * is told month by month.
+ * The audience of a period: its totals, its course, its breakdowns, for the
+ * audiences asked — the people, the robots, or both. Each audience is read
+ * day by day where it is still kept, and from its months summed up before
+ * that, its own retention apart: a part of the period reaching back there is
+ * told month by month.
  */
 class AnalyticsStatsService
 {
@@ -24,29 +27,54 @@ class AnalyticsStatsService
 
     public function __construct(
         private readonly PageViewRepository $pageViews,
-        private readonly AnalyticsMonthlyRepository $monthlies,
         private readonly AnalyticsRobotDayRepository $robotDays,
+        private readonly AnalyticsMonthlyRepository $monthlies,
         private readonly int $retentionMonths,
+        private readonly int $suspectRetentionMonths,
+        private readonly int $robotRetentionMonths,
     ) {
     }
 
     /**
-     * The first day whose pages viewed are still kept.
+     * The months an audience is kept day by day, before only its months
+     * summed up are.
      */
-    public function getHorizon(): DateTimeImmutable
+    public function getRetentionMonths(AnalyticsAudience $audience): int
     {
-        return new DateTimeImmutable('first day of this month midnight')->modify('-' . $this->retentionMonths . ' months');
+        return match ($audience) {
+            AnalyticsAudience::HUMAN => $this->retentionMonths,
+            AnalyticsAudience::SUSPECT => $this->suspectRetentionMonths,
+            AnalyticsAudience::DECLARED => $this->robotRetentionMonths,
+        };
     }
 
     /**
+     * The first day an audience is still kept day by day.
+     */
+    public function getHorizon(AnalyticsAudience $audience): DateTimeImmutable
+    {
+        return new DateTimeImmutable('first day of this month midnight')->modify('-' . $this->getRetentionMonths($audience) . ' months');
+    }
+
+    public function getCounts(AnalyticsAudience $audience): AnalyticsCountsInterface
+    {
+        return $this->pageViews->supportsAudience($audience) ? $this->pageViews : $this->robotDays;
+    }
+
+    /**
+     * @param list<AnalyticsAudience> $audiences
      * @return array{visitors: int, visits: int, views: int}
      */
-    public function getTotals(AnalyticsPeriod $period): array
+    public function getTotals(AnalyticsPeriod $period, array $audiences): array
     {
-        $totals = $this->pageViews->countTotals(...$this->kept($period));
+        $totals = self::zero();
 
-        foreach ($this->summedUp(AnalyticsDimension::TOTAL, $period) as $monthly) {
-            $totals = self::add($totals, $monthly);
+        foreach ($audiences as $audience) {
+            $totals = self::add($totals, $this->getCounts($audience)->countTotals($audience, ...$this->kept($audience, $period)));
+
+            foreach ($this->summedUp($audience, AnalyticsDimension::TOTAL, $period) as $monthly) {
+                $totals = self::add($totals, $monthly);
+            }
         }
 
         return $totals;
@@ -56,29 +84,32 @@ class AnalyticsStatsService
      * The counts per day, or per month over a long period, every day or month
      * of the period present — a gap is a zero.
      *
+     * @param list<AnalyticsAudience> $audiences
      * @return array<string, array{visitors: int, visits: int, views: int}> `Y-m-d` or `Y-m`
      */
-    public function getSeries(AnalyticsPeriod $period): array
+    public function getSeries(AnalyticsPeriod $period, array $audiences): array
     {
         $daily = $period->isDaily();
         $format = $daily ? 'Y-m-d' : 'Y-m';
         $series = [];
 
         for ($date = $period->from; $date < $period->to; $date = $date->modify($daily ? '+1 day' : 'first day of next month')) {
-            $series[$date->format($format)] = ['visitors' => 0, 'visits' => 0, 'views' => 0];
+            $series[$date->format($format)] = self::zero();
         }
 
-        foreach ($this->summedUp(AnalyticsDimension::TOTAL, $period) as $monthly) {
-            $key = $monthly->getMonth()->format($format);
+        foreach ($audiences as $audience) {
+            foreach ($this->summedUp($audience, AnalyticsDimension::TOTAL, $period) as $monthly) {
+                $key = $monthly->getMonth()->format($format);
 
-            if (isset($series[$key])) {
-                $series[$key] = self::add($series[$key], $monthly);
+                if (isset($series[$key])) {
+                    $series[$key] = self::add($series[$key], $monthly);
+                }
             }
-        }
 
-        foreach ($this->pageViews->countPerBucket(...[...$this->kept($period), $daily]) as $key => $counts) {
-            if (isset($series[$key])) {
-                $series[$key] = self::add($series[$key], $counts);
+            foreach ($this->getCounts($audience)->countPerBucket($audience, ...[...$this->kept($audience, $period), $daily]) as $key => $counts) {
+                if (isset($series[$key])) {
+                    $series[$key] = self::add($series[$key], $counts);
+                }
             }
         }
 
@@ -86,32 +117,34 @@ class AnalyticsStatsService
     }
 
     /**
-     * @return list<AnalyticsBreakdown> the most visited first
+     * @param list<AnalyticsAudience> $audiences
+     * @return list<AnalyticsBreakdown> the most visited first, the most read
+     *                                  when no line has a visit
      */
-    public function getBreakdown(AnalyticsDimension $dimension, AnalyticsPeriod $period): array
+    public function getBreakdown(AnalyticsDimension $dimension, AnalyticsPeriod $period, array $audiences): array
     {
         if (AnalyticsDimension::TOTAL === $dimension) {
-            $totals = $this->getTotals($period);
+            $totals = $this->getTotals($period, $audiences);
 
             return [new AnalyticsBreakdown($dimension->value, '', $totals['visitors'], $totals['visits'], $totals['views'], $period->getKey())];
         }
 
-        // A robot has neither visitor nor visit: its pages alone.
-        if (AnalyticsDimension::ROBOT === $dimension) {
-            $breakdown = [];
+        $lines = [];
 
-            foreach ($this->robotDays->countPerRobot($period->from, $period->to, self::BREAKDOWN_LIMIT) as $robot => $hits) {
-                $breakdown[] = new AnalyticsBreakdown($dimension->value, $robot, 0, 0, $hits, $period->getKey());
+        foreach ($audiences as $audience) {
+            // A person is no robot.
+            if (AnalyticsDimension::ROBOT === $dimension && AnalyticsAudience::HUMAN === $audience) {
+                continue;
             }
 
-            return $breakdown;
-        }
+            foreach ($this->getCounts($audience)->countPerValue($audience, $dimension->getColumn(), ...[...$this->kept($audience, $period), self::BREAKDOWN_LIMIT]) as $key => $counts) {
+                $lines[$key] = self::add($lines[$key] ?? self::zero(), $counts);
+            }
 
-        $lines = $this->pageViews->countPerValue($dimension->getColumn(), ...[...$this->kept($period), self::BREAKDOWN_LIMIT]);
-
-        foreach ($this->summedUp($dimension, $period) as $monthly) {
-            $key = $monthly->getDimensionKey();
-            $lines[$key] = self::add($lines[$key] ?? ['visitors' => 0, 'visits' => 0, 'views' => 0], $monthly);
+            foreach ($this->summedUp($audience, $dimension, $period) as $monthly) {
+                $key = $monthly->getDimensionKey();
+                $lines[$key] = self::add($lines[$key] ?? self::zero(), $monthly);
+            }
         }
 
         uasort($lines, static fn (array $a, array $b): int => [$b['visits'], $b['views']] <=> [$a['visits'], $a['views']]);
@@ -126,33 +159,43 @@ class AnalyticsStatsService
     }
 
     /**
-     * The part of the period whose pages viewed are kept.
+     * The part of the period an audience is still kept day by day.
      *
      * @return array{0: DateTimeImmutable, 1: DateTimeImmutable}
      */
-    private function kept(AnalyticsPeriod $period): array
+    private function kept(AnalyticsAudience $audience, AnalyticsPeriod $period): array
     {
-        return [max($period->from, $this->getHorizon()), $period->to];
+        return [max($period->from, $this->getHorizon($audience)), $period->to];
     }
 
     /**
-     * The months summed up within the part of the period before the horizon.
+     * The audience's months summed up within the part of the period before
+     * its horizon.
      *
      * @return list<AnalyticsMonthly>
      */
-    private function summedUp(AnalyticsDimension $dimension, AnalyticsPeriod $period): array
+    private function summedUp(AnalyticsAudience $audience, AnalyticsDimension $dimension, AnalyticsPeriod $period): array
     {
-        $horizon = $this->getHorizon();
+        $horizon = $this->getHorizon($audience);
 
         if ($period->from >= $horizon) {
             return [];
         }
 
         return $this->monthlies->findForDimension(
+            $audience,
             $dimension,
             $period->from->modify('first day of this month'),
             min($period->to, $horizon)
         );
+    }
+
+    /**
+     * @return array{visitors: int, visits: int, views: int}
+     */
+    private static function zero(): array
+    {
+        return ['visitors' => 0, 'visits' => 0, 'views' => 0];
     }
 
     /**

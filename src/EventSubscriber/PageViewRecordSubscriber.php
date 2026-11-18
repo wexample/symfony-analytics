@@ -23,9 +23,12 @@ use Wexample\SymfonyGeo\Interface\IpLocatorInterface;
  * visit of an account running the site (`excluded_roles`). Nothing runs in
  * the browser.
  *
- * A robot's page is counted apart, a sum a day per robot: one its user agent
- * names, or a visitor reading faster than `robot_hourly_views` — a crawler
- * dressed as a browser.
+ * A robot naming itself is counted apart, a sum a day per robot and route
+ * (`robot_retention_months`, 0 to leave it out). A browser's user agent
+ * reading as no person does — without a browser's headers, faster than
+ * `robot_hourly_views` or `robot_minute_views` — is kept as a page viewed,
+ * marked as a suspected robot, and so are the pages it read before that day:
+ * a visitor is someone else the next day.
  *
  * A page carries on the visit of the visitor's previous one when it is
  * recent enough, taking its origin; otherwise it opens a visit, whose origin
@@ -42,6 +45,8 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
         private readonly array $excludedRoles,
         private readonly int $visitTimeout,
         private readonly int $robotHourlyViews,
+        private readonly int $robotMinuteViews,
+        private readonly int $robotRetentionMonths,
         // Absent without a package locating addresses (symfony-remote-db-ip): no country.
         private readonly ?IpLocatorInterface $ipLocator = null,
     ) {
@@ -64,7 +69,9 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
         $userAgent = $request->headers->get('User-Agent');
 
         if (null !== $robot = UserAgentHelper::getRobot($userAgent)) {
-            $this->robotDays->countHit($robot, $now);
+            if ($this->robotRetentionMonths > 0) {
+                $this->robotDays->countHit($robot, (string) $request->attributes->get('_route'), $now);
+            }
 
             return;
         }
@@ -76,12 +83,10 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
         }
 
         $visitorId = $this->visitors->getVisitorId($request);
+        $robot = $this->pageViews->findRobotOfVisitor($visitorId);
 
-        if ($this->robotHourlyViews > 0
-            && $this->pageViews->countOfVisitorSince($visitorId, $now->modify('-1 hour')) >= $this->robotHourlyViews) {
-            $this->robotDays->countHit(UserAgentHelper::ROBOT_CADENCE, $now);
-
-            return;
+        if (null === $robot && null !== $robot = $this->getSuspectRobot($request, $visitorId, $now)) {
+            $this->pageViews->markVisitorRobot($visitorId, $robot);
         }
 
         $previous = $this->pageViews->findLatestOfVisitorSince($visitorId, $now->modify('-' . $this->visitTimeout . ' minutes'));
@@ -96,7 +101,37 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
             $previous?->getOrigin() ?? TrafficOriginHelper::read($request->headers->get('Referer'), $request->query->all(), $request->getHost()),
             $this->ipLocator?->locateCountry((string) $request->getClientIp()),
             UserAgentHelper::getDevice($userAgent),
+            $robot,
         );
+    }
+
+    /**
+     * Why a browser's user agent is a robot's, null while it reads as a
+     * person: the headers it sends, then how fast it reads.
+     */
+    private function getSuspectRobot(Request $request, string $visitorId, DateTimeImmutable $now): ?string
+    {
+        $headers = UserAgentHelper::getHeadersRobot(
+            $request->headers->get('User-Agent'),
+            $request->headers->get('Accept-Language'),
+            $request->headers->get('Sec-Fetch-Mode'),
+        );
+
+        if (null !== $headers) {
+            return $headers;
+        }
+
+        if ($this->robotMinuteViews > 0
+            && $this->pageViews->countOfVisitorSince($visitorId, $now->modify('-1 minute')) >= $this->robotMinuteViews) {
+            return UserAgentHelper::ROBOT_BURST;
+        }
+
+        if ($this->robotHourlyViews > 0
+            && $this->pageViews->countOfVisitorSince($visitorId, $now->modify('-1 hour')) >= $this->robotHourlyViews) {
+            return UserAgentHelper::ROBOT_CADENCE;
+        }
+
+        return null;
     }
 
     private function isPageRead(Request $request, Response $response): bool

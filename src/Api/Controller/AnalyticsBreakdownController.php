@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Wexample\SymfonyAnalytics\Api\Dto\PublicAnalyticsBreakdownDto;
 use Wexample\SymfonyAnalytics\Api\Normalizer\Entity\AnalyticsBreakdown\DefaultAnalyticsBreakdownNormalizer;
 use Wexample\SymfonyAnalytics\Class\AnalyticsPeriod;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsAudienceView;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
 use Wexample\SymfonyAnalytics\Service\AnalyticsAccessService;
 use Wexample\SymfonyAnalytics\Service\AnalyticsStatsService;
@@ -22,7 +23,8 @@ use Wexample\SymfonyHelpers\Controller\AbstractController;
 
 /**
  * The audience of a period broken down by a dimension — `dimension`, one of
- * AnalyticsDimension; `total` for the period as one line —, sortable and
+ * AnalyticsDimension; `total` for the period as one line —, of the people,
+ * the robots or both — `audience`, one of AnalyticsAudienceView —, sortable and
  * paged: what a table of it reads. The holders of `access_role` only.
  */
 #[Route(path: '_api/analytics-breakdown/', name: 'api_analytics_breakdown_')]
@@ -31,6 +33,8 @@ class AnalyticsBreakdownController extends AbstractApiController
     final public const string ROUTE_LIST = 'list';
 
     final public const string QUERY_OPTION_DIMENSION = 'dimension';
+
+    final public const string QUERY_OPTION_AUDIENCE = 'audience';
 
     final public const string QUERY_OPTION_FROM = 'from';
 
@@ -41,6 +45,7 @@ class AnalyticsBreakdownController extends AbstractApiController
     #[LengthQueryOption]
     #[SortQueryOption(allowed: ['visits', 'visitors', 'views', 'dimensionKey'], default: '-visits')]
     #[StringQueryOption(key: self::QUERY_OPTION_DIMENSION, default: 'total')]
+    #[StringQueryOption(key: self::QUERY_OPTION_AUDIENCE, default: 'humans')]
     #[StringQueryOption(key: self::QUERY_OPTION_FROM, default: '')]
     #[StringQueryOption(key: self::QUERY_OPTION_TO, default: '')]
     #[ApiResponseData(PublicAnalyticsBreakdownDto::class, paginated: true)]
@@ -54,12 +59,14 @@ class AnalyticsBreakdownController extends AbstractApiController
 
         $dimension = AnalyticsDimension::tryFrom((string) self::getQueryOptionValue($request, self::QUERY_OPTION_DIMENSION, 'total'))
             ?? throw new BadRequestHttpException('Unknown `dimension`.');
+        $view = AnalyticsAudienceView::tryFrom((string) self::getQueryOptionValue($request, self::QUERY_OPTION_AUDIENCE, AnalyticsAudienceView::HUMANS->value))
+            ?? throw new BadRequestHttpException('Unknown `audience`.');
         $period = AnalyticsPeriod::fromQuery(
             (string) self::getQueryOptionValue($request, self::QUERY_OPTION_FROM, ''),
             (string) self::getQueryOptionValue($request, self::QUERY_OPTION_TO, '')
         );
 
-        [$pagination, $page] = self::applyQueryOptionsToList($request, $stats->getBreakdown($dimension, $period));
+        [$pagination, $page] = self::applyQueryOptionsToList($request, $stats->getBreakdown($dimension, $period, $view->getAudiences()));
 
         return self::apiResponsePaginated($pagination, $normalizer->normalizeCollection($page));
     }

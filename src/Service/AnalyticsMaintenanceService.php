@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsMonthlyRepository;
+use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotSlotRepository;
 
 /**
  * Sums every finished month up, per audience and dimension, as soon as it is
@@ -19,8 +20,12 @@ class AnalyticsMaintenanceService
     /** The lines kept per month and dimension: the long tail of pages is not history. */
     private const int MONTHLY_LINES = 1000;
 
+    /** The days the robots' five minutes are kept: the day's chart reads the last one. */
+    private const int SLOT_DAYS = 2;
+
     public function __construct(
         private readonly AnalyticsMonthlyRepository $monthlies,
+        private readonly AnalyticsRobotSlotRepository $robotSlots,
         private readonly AnalyticsStatsService $stats,
         private readonly EntityManagerInterface $entityManager,
     ) {
@@ -50,6 +55,8 @@ class AnalyticsMaintenanceService
 
             $deleted += $counts->deleteBefore($audience, $this->stats->getHorizon($audience));
         }
+
+        $deleted += $this->robotSlots->deleteBefore(new DateTimeImmutable('-' . self::SLOT_DAYS . ' days'));
 
         return ['months' => $months, 'deleted' => $deleted];
     }

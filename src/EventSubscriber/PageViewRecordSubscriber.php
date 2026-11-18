@@ -13,6 +13,7 @@ use Symfony\Component\Uid\Uuid;
 use Wexample\SymfonyAnalytics\Helper\TrafficOriginHelper;
 use Wexample\SymfonyAnalytics\Helper\UserAgentHelper;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotDayRepository;
+use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotSlotRepository;
 use Wexample\SymfonyAnalytics\Repository\PageViewRepository;
 use Wexample\SymfonyAnalytics\Service\AnalyticsVisitorService;
 use Wexample\SymfonyGeo\Interface\IpLocatorInterface;
@@ -24,7 +25,8 @@ use Wexample\SymfonyGeo\Interface\IpLocatorInterface;
  * the browser.
  *
  * A robot naming itself is counted apart, a sum a day per robot and route
- * (`robot_retention_months`, 0 to leave it out). A browser's user agent
+ * (`robot_retention_months`, 0 to leave it out), and per five minutes for
+ * the day's chart. A browser's user agent
  * reading as no person does — without a browser's headers, faster than
  * `robot_hourly_views` or `robot_minute_views` — is kept as a page viewed,
  * marked as a suspected robot, and so are the pages it read before that day:
@@ -39,6 +41,7 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
     public function __construct(
         private readonly PageViewRepository $pageViews,
         private readonly AnalyticsRobotDayRepository $robotDays,
+        private readonly AnalyticsRobotSlotRepository $robotSlots,
         private readonly AnalyticsVisitorService $visitors,
         private readonly Security $security,
         private readonly bool $enabled,
@@ -71,6 +74,7 @@ class PageViewRecordSubscriber implements EventSubscriberInterface
         if (null !== $robot = UserAgentHelper::getRobot($userAgent)) {
             if ($this->robotRetentionMonths > 0) {
                 $this->robotDays->countHit($robot, (string) $request->attributes->get('_route'), $now);
+                $this->robotSlots->countHit($robot, $now);
             }
 
             return;

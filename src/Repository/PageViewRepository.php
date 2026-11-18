@@ -140,6 +140,43 @@ class PageViewRepository extends AbstractRepository implements AnalyticsCountsIn
         return $buckets;
     }
 
+    /**
+     * The pages per minute (`Y-m-d H:i`), for the day's chart: no visitor nor
+     * visit, which a slot of a few minutes would count over again.
+     *
+     * @return array<string, int>
+     */
+    public function countPerMinute(AnalyticsAudience $audience, DateTimeImmutable $from, DateTimeImmutable $to): array
+    {
+        $minute = 'SUBSTR(CAST(viewed_at AS VARCHAR(19)), 1, 16)';
+        $rows = $this->getEntityManager()->getConnection()->fetchAllAssociative(
+            'SELECT ' . $minute . ' AS minute, COUNT(*) AS views FROM ' . self::TABLE
+            . ' WHERE viewed_at >= :from AND viewed_at < :to AND ' . self::audienceCondition($audience)
+            . ' GROUP BY ' . $minute,
+            $this->bounds($from, $to)
+        );
+
+        return array_combine(array_column($rows, 'minute'), array_map('intval', array_column($rows, 'views')));
+    }
+
+    /**
+     * The latest pages of an audience, the newest first.
+     *
+     * @return list<PageView>
+     */
+    public function findLatest(AnalyticsAudience $audience, int $limit): array
+    {
+        $builder = $this->createQueryBuilder('page_view')
+            ->orderBy('page_view.viewedAt', self::SORT_DESC)
+            ->setMaxResults($limit);
+
+        AnalyticsAudience::HUMAN === $audience
+            ? $builder->andWhere('page_view.robot IS NULL')
+            : $builder->andWhere('page_view.robot IS NOT NULL');
+
+        return $builder->getQuery()->getResult();
+    }
+
     public function countPerValue(AnalyticsAudience $audience, string $column, DateTimeImmutable $from, DateTimeImmutable $to, int $limit): array
     {
         $rows = $this->getEntityManager()->getConnection()->fetchAllAssociative(

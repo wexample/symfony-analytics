@@ -25,4 +25,16 @@ enum AnalyticsAudience: string
     {
         return self::DECLARED !== $this;
     }
+
+    /**
+     * Its category of the charts' palette, the same on every chart.
+     */
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::HUMAN => 'mint',
+            self::SUSPECT => 'sunflower',
+            self::DECLARED => 'plum',
+        };
+    }
 }

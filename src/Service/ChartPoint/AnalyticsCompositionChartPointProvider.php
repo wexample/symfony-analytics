@@ -21,12 +21,6 @@ class AnalyticsCompositionChartPointProvider implements ChartPointProviderInterf
 {
     private const string DOMAIN = 'WexampleSymfonyAnalyticsBundle.common.analytics::audience.';
 
-    private const array COLORS = [
-        'human' => 'mint',
-        'suspect' => 'sunflower',
-        'declared' => 'plum',
-    ];
-
     public function __construct(
         private readonly AnalyticsStatsService $stats,
         private readonly AnalyticsAccessService $access,
@@ -57,7 +51,7 @@ class AnalyticsCompositionChartPointProvider implements ChartPointProviderInterf
                 $categories,
                 array_column($series, 'views'),
                 $this->translator->trans(self::DOMAIN . $audience->value),
-                self::COLORS[$audience->value]
+                $audience->getColor()
             )];
         }
 

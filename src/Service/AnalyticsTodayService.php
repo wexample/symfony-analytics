@@ -19,8 +19,8 @@ class AnalyticsTodayService
     /** The hours a chart of the day runs over, and the minutes of each of its bars. */
     public const array WINDOWS = [24 => 15, 2 => 5];
 
-    /** Within these minutes, a visitor is at the site. */
-    public const int ACTIVE_MINUTES = 30;
+    /** What "now" covers, one window for all it tells: the visitors at the site, their pages, the busiest robot. */
+    public const int NOW_MINUTES = 60;
 
     public function __construct(
         private readonly PageViewRepository $pageViews,
@@ -66,26 +66,22 @@ class AnalyticsTodayService
     }
 
     /**
-     * The people who read a page within the last ACTIVE_MINUTES.
+     * The people who read a page within the last NOW_MINUTES.
      */
     public function countActiveVisitors(): int
     {
-        $now = new DateTimeImmutable();
-
-        return $this->pageViews->countTotals(AnalyticsAudience::HUMAN, $now->modify('-' . self::ACTIVE_MINUTES . ' minutes'), $now->modify('+1 minute'))['visitors'];
+        return $this->pageViews->countTotals(AnalyticsAudience::HUMAN, ...self::now())['visitors'];
     }
 
     /**
-     * The people's pages within the last sixty minutes, and yesterday over
-     * the same ones: whether this hour is an ordinary one. Sliding, as the
-     * visitors at the site are: whoever is at it has a page counted here.
+     * The people's pages within the last NOW_MINUTES, and yesterday over the
+     * same ones: whether this hour is an ordinary one.
      *
      * @return array{now: int, yesterday: int}
      */
     public function compareHour(): array
     {
-        $to = new DateTimeImmutable('+1 minute');
-        $from = $to->modify('-61 minutes');
+        [$from, $to] = self::now();
 
         return [
             'now' => $this->pageViews->countTotals(AnalyticsAudience::HUMAN, $from, $to)['views'],
@@ -94,7 +90,7 @@ class AnalyticsTodayService
     }
 
     /**
-     * The robot that read the most within the last hour, declared or
+     * The robot that read the most within the last NOW_MINUTES, declared or
      * suspected — a suspected one by the reason it was caught —, null when
      * none read anything.
      *
@@ -102,9 +98,7 @@ class AnalyticsTodayService
      */
     public function findBusiestRobot(): ?array
     {
-        $now = new DateTimeImmutable();
-        $from = $now->modify('-1 hour');
-        $to = $now->modify('+1 minute');
+        [$from, $to] = self::now();
         $busiest = null;
 
         foreach ($this->robotSlots->countPerRobot($from, $to, 1) as $robot => $views) {
@@ -132,7 +126,7 @@ class AnalyticsTodayService
     {
         return [
             'active' => $this->countActiveVisitors(),
-            'active_minutes' => self::ACTIVE_MINUTES,
+            'active_minutes' => self::NOW_MINUTES,
             'hour' => $this->compareHour(),
             'busiest' => $this->findBusiestRobot(),
             'latest' => array_map(static fn (PageView $view): array => [
@@ -150,6 +144,18 @@ class AnalyticsTodayService
     public function findLatestPages(int $limit): array
     {
         return $this->pageViews->findLatest(AnalyticsAudience::HUMAN, $limit);
+    }
+
+    /**
+     * The last NOW_MINUTES, up to the minute under way included.
+     *
+     * @return array{0: DateTimeImmutable, 1: DateTimeImmutable}
+     */
+    private static function now(): array
+    {
+        $to = new DateTimeImmutable('+1 minute');
+
+        return [$to->modify('-' . (self::NOW_MINUTES + 1) . ' minutes'), $to];
     }
 
     private static function floor(DateTimeImmutable $at, int $minutes): DateTimeImmutable

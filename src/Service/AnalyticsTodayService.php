@@ -76,19 +76,20 @@ class AnalyticsTodayService
     }
 
     /**
-     * The people's pages since the hour began, and yesterday over the same
-     * minutes: whether this hour is an ordinary one.
+     * The people's pages within the last sixty minutes, and yesterday over
+     * the same ones: whether this hour is an ordinary one. Sliding, as the
+     * visitors at the site are: whoever is at it has a page counted here.
      *
      * @return array{now: int, yesterday: int}
      */
     public function compareHour(): array
     {
-        $now = new DateTimeImmutable();
-        $hour = $now->setTime((int) $now->format('H'), 0);
+        $to = new DateTimeImmutable('+1 minute');
+        $from = $to->modify('-61 minutes');
 
         return [
-            'now' => $this->pageViews->countTotals(AnalyticsAudience::HUMAN, $hour, $now->modify('+1 minute'))['views'],
-            'yesterday' => $this->pageViews->countTotals(AnalyticsAudience::HUMAN, $hour->modify('-1 day'), $now->modify('-1 day'))['views'],
+            'now' => $this->pageViews->countTotals(AnalyticsAudience::HUMAN, $from, $to)['views'],
+            'yesterday' => $this->pageViews->countTotals(AnalyticsAudience::HUMAN, $from->modify('-1 day'), $to->modify('-1 day'))['views'],
         ];
     }
 

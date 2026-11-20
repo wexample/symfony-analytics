@@ -1,7 +1,7 @@
 {
   "name": "wexample/symfony-analytics",
   "description": "The audience of a site, counted on the server without cookies: visitors, visits, where they come from, where they are",
-  "version": "6.0.2",
+  "version": "7.0.0",
   "type": "library",
   "license": "MIT",
   "autoload": {
@@ -28,7 +28,7 @@
     "symfony/security-bundle": "^7.4 || ^8.0",
     "symfony/uid": "^7.4 || ^8.0",
     "wexample/php-pseudocode": ">=3.1.0",
-    "wexample/symfony-api": ">=22.0.0",
+    "wexample/symfony-api": ">=23.0.0",
     "wexample/symfony-charts": ">=6.0.0",
     "wexample/symfony-geo": ">=10.0.0",
     "wexample/symfony-helpers": ">=19.3.0",

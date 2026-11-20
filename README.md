@@ -1,6 +1,6 @@
 # symfony-analytics
 
-Version: 6.0.2
+Version: 7.0.0
 
 The audience of a site, counted on the server without cookies: visitors, visits, where they come from, where they are
 

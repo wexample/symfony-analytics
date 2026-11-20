@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class AnalyticsStorageService
 {
-    private const array TABLES = ['analytics_page_view', 'analytics_robot_day', 'analytics_robot_slot', 'analytics_monthly'];
+    private const array TABLES = ['analytics_page_view', 'analytics_robot_day', 'analytics_robot_slot', 'analytics_monthly', 'analytics_api_day', 'analytics_api_slot'];
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,

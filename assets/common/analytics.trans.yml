@@ -7,6 +7,20 @@ en:
     human: 'People'
     suspect: 'Suspected robots'
     declared: 'Declared robots'
+  api_outcome:
+    ok: 'Answered'
+    client_error: 'Refused'
+    limited: 'Rate limited'
+    server_error: 'Failed'
+  api_metric:
+    calls: 'Calls'
+    client_errors: 'Refused'
+    limited: 'Rate limited'
+    server_errors: 'Failed'
+    cached: 'From cache'
+    average_ms: 'Average time'
+    max_ms: 'Longest'
+    clients: 'Callers'
 
 fr:
   metric:
@@ -17,6 +31,20 @@ fr:
     human: 'Personnes'
     suspect: 'Robots suspectés'
     declared: 'Robots déclarés'
+  api_outcome:
+    ok: 'Servis'
+    client_error: 'Refusés'
+    limited: 'Plafonnés'
+    server_error: 'En échec'
+  api_metric:
+    calls: 'Appels'
+    client_errors: 'Refusés'
+    limited: 'Plafonnés'
+    server_errors: 'En échec'
+    cached: 'Depuis le cache'
+    average_ms: 'Temps moyen'
+    max_ms: 'Le plus long'
+    clients: 'Appelants'
 
 zh:
   metric:

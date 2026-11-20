@@ -6,6 +6,8 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsDimension;
+use Wexample\SymfonyAnalytics\Repository\AnalyticsApiDayRepository;
+use Wexample\SymfonyAnalytics\Repository\AnalyticsApiSlotRepository;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsMonthlyRepository;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotSlotRepository;
 
@@ -26,6 +28,9 @@ class AnalyticsMaintenanceService
     public function __construct(
         private readonly AnalyticsMonthlyRepository $monthlies,
         private readonly AnalyticsRobotSlotRepository $robotSlots,
+        private readonly AnalyticsApiDayRepository $apiDays,
+        private readonly AnalyticsApiSlotRepository $apiSlots,
+        private readonly AnalyticsApiStatsService $apiStats,
         private readonly AnalyticsStatsService $stats,
         private readonly EntityManagerInterface $entityManager,
     ) {
@@ -57,6 +62,9 @@ class AnalyticsMaintenanceService
         }
 
         $deleted += $this->robotSlots->deleteBefore(new DateTimeImmutable('-' . self::SLOT_DAYS . ' days'));
+        // The api's calls are sums already: past their retention, gone.
+        $deleted += $this->apiDays->deleteBefore($this->apiStats->getHorizon());
+        $deleted += $this->apiSlots->deleteBefore(new DateTimeImmutable('-' . self::SLOT_DAYS . ' days'));
 
         return ['months' => $months, 'deleted' => $deleted];
     }

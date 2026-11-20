@@ -4,7 +4,9 @@ namespace Wexample\SymfonyAnalytics\Service;
 
 use DateTimeImmutable;
 use Wexample\SymfonyAnalytics\Entity\PageView;
+use Wexample\SymfonyAnalytics\Enum\AnalyticsApiOutcome;
 use Wexample\SymfonyAnalytics\Enum\AnalyticsAudience;
+use Wexample\SymfonyAnalytics\Repository\AnalyticsApiSlotRepository;
 use Wexample\SymfonyAnalytics\Repository\AnalyticsRobotSlotRepository;
 use Wexample\SymfonyAnalytics\Repository\PageViewRepository;
 
@@ -25,6 +27,8 @@ class AnalyticsTodayService
     public function __construct(
         private readonly PageViewRepository $pageViews,
         private readonly AnalyticsRobotSlotRepository $robotSlots,
+        private readonly AnalyticsApiSlotRepository $apiSlots,
+        private readonly int $apiRetentionMonths,
     ) {
     }
 
@@ -120,7 +124,7 @@ class AnalyticsTodayService
      * visitors at the site, this hour beside yesterday's, the busiest robot,
      * the people's latest pages.
      *
-     * @return array{active: int, active_minutes: int, hour: array{now: int, yesterday: int}, busiest: array{robot: string, suspect: bool, views: int}|null, latest: list<array{viewed_at: string, path: string, source: string, country: string|null}>}
+     * @return array{active: int, active_minutes: int, hour: array{now: int, yesterday: int}, busiest: array{robot: string, suspect: bool, views: int}|null, api: array<string, int>|null, latest: list<array{viewed_at: string, path: string, source: string, country: string|null}>}
      */
     public function summarize(int $latest = 10): array
     {
@@ -129,6 +133,7 @@ class AnalyticsTodayService
             'active_minutes' => self::NOW_MINUTES,
             'hour' => $this->compareHour(),
             'busiest' => $this->findBusiestRobot(),
+            'api' => $this->countApiCalls(),
             'latest' => array_map(static fn (PageView $view): array => [
                 'viewed_at' => $view->getViewedAt()->format(DATE_ATOM),
                 'path' => $view->getPath(),
@@ -136,6 +141,30 @@ class AnalyticsTodayService
                 'country' => $view->getCountry(),
             ], $this->findLatestPages($latest)),
         ];
+    }
+
+    /**
+     * The calls to the api within the last NOW_MINUTES, all of them and per
+     * AnalyticsApiOutcome; null where the api is not counted.
+     *
+     * @return array<string, int>|null `calls`, then the calls per outcome
+     */
+    public function countApiCalls(): ?array
+    {
+        if ($this->apiRetentionMonths < 1) {
+            return null;
+        }
+
+        $calls = ['calls' => 0] + array_fill_keys(array_map(static fn (AnalyticsApiOutcome $outcome): string => $outcome->value, AnalyticsApiOutcome::cases()), 0);
+
+        foreach ($this->apiSlots->countPerSlot(...self::now()) as $outcomes) {
+            foreach ($outcomes as $outcome => $count) {
+                $calls[$outcome] += $count;
+                $calls['calls'] += $count;
+            }
+        }
+
+        return $calls;
     }
 
     /**

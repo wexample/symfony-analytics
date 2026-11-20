@@ -13,6 +13,9 @@ services:
             $retentionMonths: '%wexample_symfony_analytics.retention_months%'
             $suspectRetentionMonths: '%wexample_symfony_analytics.suspect_retention_months%'
             $robotRetentionMonths: '%wexample_symfony_analytics.robot_retention_months%'
+            $apiPaths: '%wexample_symfony_analytics.api_paths%'
+            $apiExcludedRoutes: '%wexample_symfony_analytics.api_excluded_routes%'
+            $apiRetentionMonths: '%wexample_symfony_analytics.api_retention_months%'
             $autoMaintenance: '%wexample_symfony_analytics.auto_maintenance%'
             $secret: '%kernel.secret%'
 

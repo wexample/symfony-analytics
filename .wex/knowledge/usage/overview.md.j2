@@ -22,6 +22,18 @@ The words it counts with:
 - **Origin** (`TrafficOriginHelper`): `direct`, `search` (engine, and keyword where the engine still passes it, or `utm_term`), `social`, `ai` (ChatGPT, Perplexity, Claude, Gemini… also read from `utm_source=chatgpt.com`), `referral`, `campaign` (`utm_*`).
 - **Country**: through symfony-geo's `IpLocatorInterface` — symfony-remote-db-ip — when installed; the address itself is never stored.
 
+## The api's calls
+
+Programs and MCP agents are counted apart from the readers by `ApiCallRecordSubscriber`: a request under one of `api_paths` (`^/api/` by default) answered with anything but a page, outside `api_excluded_routes` (`api_health`). A sum a day in `analytics_api_day` per:
+
+- **route**, or `mcp:<tool>` for a tool an MCP agent called — symfony-api-mcp sets the request attribute `_mcp_tool`, read without depending on it;
+- **client**: the token that signed the call, by its hint (symfony-api), or `anonymous:` and a hash of the address and user agent under the day;
+- **status**, and **cache**: `hit` or `miss` when what caches the api's answers says so in the request attribute `_api_cache`, empty otherwise;
+
+with the calls, their milliseconds together and the longest one, timed from before the firewall to the response. A sum per five minutes and status in `analytics_api_slot`, kept two days, for what is going on now. `api_retention_months` (13; 0 does not count the api) keeps the days, then deletes them: they are sums already.
+
+`AnalyticsApiStatsService` reads them: `GET /_api/analytics-api-breakdown/list?dimension=&from=&to=` (`AnalyticsApiBreakdown`: calls, refused, rate limited — a 429 —, failed, from the cache, average and longest milliseconds; the callers on the `total` line), the chart `analytics-api` (the calls per day and outcome, `AnalyticsApiOutcome`), and the calls of the last hour in `AnalyticsTodayService::summarize()`.
+
 ## Keeping
 
 Every finished month is summed up per audience and dimension (`analytics_monthly`, its first 1000 lines per dimension) as soon as it is over. Each audience is then kept day by day for its own retention, and read month by month from the sums before that:

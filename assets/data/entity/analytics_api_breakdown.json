@@ -1,0 +1,234 @@
+{
+    "name": "analytics_api_breakdown",
+    "type": "class",
+    "description": "One line of the calls to the api broken down by a dimension over a\nperiod: a route, a client, a status… how many calls, how many refused,\nstopped by a limit, failed, answered by the cache, and how long they took.\nComputed when asked for, never stored, as AnalyticsBreakdown is: it\ntravels the road of every list — normalizer, dto, generated\n`AnalyticsApiBreakdown.ts` and its repository. Its id derives from what it\nis the line of.",
+    "properties": [
+        {
+            "name": "id",
+            "type": "Symfony\\Component\\Uid\\Uuid"
+        },
+        {
+            "name": "dimension",
+            "type": "string"
+        },
+        {
+            "name": "dimensionKey",
+            "type": "string"
+        },
+        {
+            "name": "calls",
+            "type": "int"
+        },
+        {
+            "name": "clientErrors",
+            "type": "int"
+        },
+        {
+            "name": "limited",
+            "type": "int"
+        },
+        {
+            "name": "serverErrors",
+            "type": "int"
+        },
+        {
+            "name": "cached",
+            "type": "int"
+        },
+        {
+            "name": "averageMs",
+            "type": "int"
+        },
+        {
+            "name": "maxMs",
+            "type": "int"
+        },
+        {
+            "name": "clients",
+            "type": "int"
+        }
+    ],
+    "methods": [
+        {
+            "type": "method",
+            "name": "buildEntityPath",
+            "parameters": [
+                {
+                    "type": "string",
+                    "name": "className"
+                }
+            ],
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getEntityKeyName",
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getEntityShortName",
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getId",
+            "return": {
+                "type": "Symfony\\Component\\Uid\\Uuid"
+            }
+        },
+        {
+            "type": "method",
+            "name": "setId",
+            "parameters": [
+                {
+                    "type": "Symfony\\Component\\Uid\\Uuid",
+                    "name": "id"
+                }
+            ],
+            "return": {
+                "type": "void"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getTableizedName",
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getCamelName",
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "__construct",
+            "parameters": [
+                {
+                    "type": "string",
+                    "name": "dimension"
+                },
+                {
+                    "type": "string",
+                    "name": "dimensionKey"
+                },
+                {
+                    "type": "int",
+                    "name": "calls"
+                },
+                {
+                    "type": "int",
+                    "name": "clientErrors"
+                },
+                {
+                    "type": "int",
+                    "name": "limited"
+                },
+                {
+                    "type": "int",
+                    "name": "serverErrors"
+                },
+                {
+                    "type": "int",
+                    "name": "cached"
+                },
+                {
+                    "type": "int",
+                    "name": "averageMs"
+                },
+                {
+                    "type": "int",
+                    "name": "maxMs"
+                },
+                {
+                    "type": "int",
+                    "name": "clients"
+                },
+                {
+                    "type": "string",
+                    "name": "period"
+                }
+            ]
+        },
+        {
+            "type": "method",
+            "name": "getDimension",
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getDimensionKey",
+            "return": {
+                "type": "string"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getCalls",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getClientErrors",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getLimited",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getServerErrors",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getCached",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getAverageMs",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getMaxMs",
+            "return": {
+                "type": "int"
+            }
+        },
+        {
+            "type": "method",
+            "name": "getClients",
+            "return": {
+                "type": "int"
+            }
+        }
+    ]
+}

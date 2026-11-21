@@ -52,9 +52,23 @@ zh:
     visits: 访问次数
     views: 浏览页面
   audience:
-    human: '访客'
-    suspect: '疑似机器人'
-    declared: '声明的机器人'
+    human: 访客
+    suspect: 疑似机器人
+    declared: 声明的机器人
+  api_outcome:
+    ok: 已回答
+    client_error: 拒绝
+    limited: 速率限制
+    server_error: 失败
+  api_metric:
+    calls: 调用
+    client_errors: 拒绝
+    limited: 速率限制
+    server_errors: 失败
+    cached: 来自缓存
+    average_ms: 平均时间
+    max_ms: 最长
+    clients: 调用者
 
 ar:
   metric:
@@ -62,9 +76,23 @@ ar:
     visits: الزيارات
     views: 'الصفحات المعروضة'
   audience:
-    human: 'أشخاص'
+    human: أشخاص
     suspect: 'روبوتات مشتبه بها'
     declared: 'روبوتات معلنة'
+  api_outcome:
+    ok: 'تم الرد'
+    client_error: مرفوض
+    limited: 'تم تحديد المعدل'
+    server_error: فشل
+  api_metric:
+    calls: المكالمات
+    client_errors: مرفوض
+    limited: 'تم تحديد المعدل'
+    server_errors: فشل
+    cached: 'من التخزين المؤقت'
+    average_ms: 'متوسط الوقت'
+    max_ms: الأطول
+    clients: المتصلون
 
 hi:
   metric:
@@ -72,9 +100,23 @@ hi:
     visits: दौरे
     views: 'पृष्ठ देखे गए'
   audience:
-    human: 'लोग'
+    human: लोग
     suspect: 'संदिग्ध रोबोट'
     declared: 'घोषित रोबोट'
+  api_outcome:
+    ok: 'उत्तर दिया गया'
+    client_error: अस्वीकृत
+    limited: 'दर सीमा'
+    server_error: असफल
+  api_metric:
+    calls: कॉल्स
+    client_errors: अस्वीकृत
+    limited: 'दर सीमा'
+    server_errors: असफल
+    cached: 'कैश से'
+    average_ms: 'औसत समय'
+    max_ms: 'सबसे लंबा'
+    clients: कॉलर
 
 he:
   metric:
@@ -82,9 +124,23 @@ he:
     visits: ביקורים
     views: 'עמודים נצפים'
   audience:
-    human: 'אנשים'
+    human: אנשים
     suspect: 'רובוטים חשודים'
     declared: 'רובוטים מוצהרים'
+  api_outcome:
+    ok: נענה
+    client_error: נדחה
+    limited: 'מגבלת קצב'
+    server_error: נכשל
+  api_metric:
+    calls: שיחות
+    client_errors: נדחה
+    limited: 'מגבלת קצב'
+    server_errors: נכשל
+    cached: מהמטמון
+    average_ms: 'זמן ממוצע'
+    max_ms: 'הכי ארוך'
+    clients: מזמינים
 
 fa:
   metric:
@@ -92,9 +148,23 @@ fa:
     visits: بازدیدها
     views: 'صفحات مشاهده شده'
   audience:
-    human: 'افراد'
+    human: افراد
     suspect: 'ربات‌های مشکوک'
     declared: 'ربات‌های اعلام‌شده'
+  api_outcome:
+    ok: 'پاسخ داده شد'
+    client_error: 'رد شد'
+    limited: 'محدودیت نرخ'
+    server_error: ناموفق
+  api_metric:
+    calls: تماس‌ها
+    client_errors: 'رد شد'
+    limited: 'محدودیت نرخ'
+    server_errors: ناموفق
+    cached: 'از کش'
+    average_ms: 'زمان متوسط'
+    max_ms: طولانی‌ترین
+    clients: تماس‌گیرنده‌ها
 
 ur:
   metric:
@@ -102,9 +172,23 @@ ur:
     visits: زیارتیں
     views: 'دیکھے گئے صفحات'
   audience:
-    human: 'لوگ'
+    human: لوگ
     suspect: 'مشتبہ روبوٹ'
     declared: 'اعلان کردہ روبوٹ'
+  api_outcome:
+    ok: 'جواب دیا گیا'
+    client_error: 'انکار کر دیا'
+    limited: 'شرح محدود'
+    server_error: ناکام
+  api_metric:
+    calls: کالیں
+    client_errors: 'انکار کر دیا'
+    limited: 'شرح محدود'
+    server_errors: ناکام
+    cached: 'کیچ سے'
+    average_ms: 'اوسط وقت'
+    max_ms: 'سب سے طویل'
+    clients: 'کال کرنے والے'
 
 ja:
   metric:
@@ -112,9 +196,23 @@ ja:
     visits: 訪問数
     views: ページビュー
   audience:
-    human: '人'
-    suspect: '疑わしいロボット'
-    declared: '申告されたロボット'
+    human: 人
+    suspect: 疑わしいロボット
+    declared: 申告されたロボット
+  api_outcome:
+    ok: 応答しました
+    client_error: 拒否されました
+    limited: レート制限
+    server_error: 失敗しました
+  api_metric:
+    calls: コール数
+    client_errors: 拒否されました
+    limited: レート制限
+    server_errors: 失敗しました
+    cached: キャッシュから
+    average_ms: 平均時間
+    max_ms: 最長
+    clients: 呼び出し元
 
 ko:
   metric:
@@ -122,9 +220,23 @@ ko:
     visits: '방문 수'
     views: '조회된 페이지'
   audience:
-    human: '사람'
+    human: 사람
     suspect: '의심되는 로봇'
     declared: '신고된 로봇'
+  api_outcome:
+    ok: 응답됨
+    client_error: 거부됨
+    limited: '요금 제한'
+    server_error: 실패
+  api_metric:
+    calls: 호출
+    client_errors: 거부됨
+    limited: '요금 제한'
+    server_errors: 실패
+    cached: 캐시에서
+    average_ms: '평균 시간'
+    max_ms: 최대
+    clients: 호출자
 
 bn:
   metric:
@@ -132,9 +244,23 @@ bn:
     visits: ভিজিটস
     views: 'পৃষ্ঠাসমূহ দেখা হয়েছে'
   audience:
-    human: 'মানুষ'
+    human: মানুষ
     suspect: 'সন্দেহভাজন রোবট'
     declared: 'ঘোষিত রোবট'
+  api_outcome:
+    ok: 'উত্তর দেওয়া হয়েছে'
+    client_error: 'অস্বীকার করা হয়েছে'
+    limited: 'হার সীমাবদ্ধ'
+    server_error: ব্যর্থ
+  api_metric:
+    calls: কলগুলো
+    client_errors: অস্বীকৃতি
+    limited: 'হার সীমাবদ্ধ'
+    server_errors: ব্যর্থ
+    cached: 'ক্যাশ থেকে'
+    average_ms: 'গড় সময়'
+    max_ms: 'সবচেয়ে দীর্ঘ'
+    clients: কলকারী
 
 th:
   metric:
@@ -142,9 +268,23 @@ th:
     visits: การเข้าชม
     views: หน้าที่ถูกดู
   audience:
-    human: 'ผู้คน'
-    suspect: 'หุ่นยนต์ที่น่าสงสัย'
-    declared: 'หุ่นยนต์ที่ระบุตัว'
+    human: ผู้คน
+    suspect: หุ่นยนต์ที่น่าสงสัย
+    declared: หุ่นยนต์ที่ระบุตัว
+  api_outcome:
+    ok: ตอบกลับแล้ว
+    client_error: ถูกปฏิเสธ
+    limited: จำกัดอัตรา
+    server_error: ล้มเหลว
+  api_metric:
+    calls: การโทร
+    client_errors: ถูกปฏิเสธ
+    limited: จำกัดอัตรา
+    server_errors: ล้มเหลว
+    cached: จากแคช
+    average_ms: เวลาเฉลี่ย
+    max_ms: นานที่สุด
+    clients: ผู้โทร
 
 de:
   metric:
@@ -152,9 +292,23 @@ de:
     visits: Besuche
     views: Seitenaufrufe
   audience:
-    human: 'Personen'
+    human: Personen
     suspect: 'Verdächtige Roboter'
     declared: 'Deklarierte Roboter'
+  api_outcome:
+    ok: 'Antwort gegeben'
+    client_error: Abgelehnt
+    limited: 'Rate begrenzt'
+    server_error: Fehlgeschlagen
+  api_metric:
+    calls: Anrufe
+    client_errors: Abgelehnt
+    limited: 'Rate begrenzt'
+    server_errors: Fehlgeschlagen
+    cached: 'Aus dem Cache'
+    average_ms: 'Durchschnittliche Zeit'
+    max_ms: Längste
+    clients: Anrufer
 
 fi:
   metric:
@@ -162,9 +316,23 @@ fi:
     visits: Vierailut
     views: 'Näytetyt sivut'
   audience:
-    human: 'Ihmiset'
+    human: Ihmiset
     suspect: 'Epäillyt robotit'
     declared: 'Ilmoitetut robotit'
+  api_outcome:
+    ok: Vastattu
+    client_error: Kielletty
+    limited: Pyyntörajoitus
+    server_error: Epäonnistui
+  api_metric:
+    calls: Kutsut
+    client_errors: Kielletty
+    limited: Pyyntörajoitus
+    server_errors: Epäonnistui
+    cached: Välimuistista
+    average_ms: 'Keskimääräinen aika'
+    max_ms: Pisin
+    clients: Kutsujat
 
 ru:
   metric:
@@ -172,9 +340,23 @@ ru:
     visits: Визиты
     views: 'Просмотренные страницы'
   audience:
-    human: 'Люди'
+    human: Люди
     suspect: 'Подозрительные роботы'
     declared: 'Заявленные роботы'
+  api_outcome:
+    ok: 'Ответ дан'
+    client_error: Отказано
+    limited: 'Превышен лимит'
+    server_error: 'Ошибка сервера'
+  api_metric:
+    calls: Вызовы
+    client_errors: Отказано
+    limited: 'Превышен лимит'
+    server_errors: 'Ошибка сервера'
+    cached: 'Из кэша'
+    average_ms: 'Среднее время'
+    max_ms: Максимальное
+    clients: Абоненты
 
 pl:
   metric:
@@ -182,9 +364,23 @@ pl:
     visits: Wizyty
     views: 'Wyświetlone strony'
   audience:
-    human: 'Ludzie'
+    human: Ludzie
     suspect: 'Podejrzane roboty'
     declared: 'Zadeklarowane roboty'
+  api_outcome:
+    ok: Odpowiedziano
+    client_error: Odmowa
+    limited: 'Ograniczenie liczby zapytań'
+    server_error: Błąd
+  api_metric:
+    calls: Zgłoszenia
+    client_errors: Odmowa
+    limited: 'Ograniczenie liczby zapytań'
+    server_errors: Błąd
+    cached: 'Z pamięci podręcznej'
+    average_ms: 'Średni czas'
+    max_ms: Najdłuższy
+    clients: Dzwoniący
 
 es:
   metric:
@@ -192,9 +388,23 @@ es:
     visits: Visitas
     views: 'Páginas vistas'
   audience:
-    human: 'Personas'
+    human: Personas
     suspect: 'Robots sospechosos'
     declared: 'Robots declarados'
+  api_outcome:
+    ok: Respondido
+    client_error: Rechazado
+    limited: 'Limitado por tasa'
+    server_error: Fallido
+  api_metric:
+    calls: Llamadas
+    client_errors: Rechazados
+    limited: 'Limitado por tasa'
+    server_errors: Fallidos
+    cached: 'Desde caché'
+    average_ms: 'Tiempo promedio'
+    max_ms: 'Más largo'
+    clients: Llamantes
 
 it:
   metric:
@@ -202,9 +412,23 @@ it:
     visits: Visite
     views: 'Pagine visualizzate'
   audience:
-    human: 'Persone'
+    human: Persone
     suspect: 'Robot sospetti'
     declared: 'Robot dichiarati'
+  api_outcome:
+    ok: Risposto
+    client_error: Rifiutato
+    limited: 'Limite di frequenza'
+    server_error: Fallito
+  api_metric:
+    calls: Chiamate
+    client_errors: Rifiutato
+    limited: 'Limite di frequenza'
+    server_errors: Fallito
+    cached: 'Dalla cache'
+    average_ms: 'Tempo medio'
+    max_ms: 'Più lungo'
+    clients: Chiamanti
 
 pt_BR:
   metric:
@@ -212,9 +436,23 @@ pt_BR:
     visits: Visitas
     views: 'Páginas visualizadas'
   audience:
-    human: 'Pessoas'
+    human: Pessoas
     suspect: 'Robôs suspeitos'
     declared: 'Robôs declarados'
+  api_outcome:
+    ok: Respondido
+    client_error: Recusado
+    limited: 'Limite de taxa'
+    server_error: Falhou
+  api_metric:
+    calls: Chamadas
+    client_errors: Recusado
+    limited: 'Limite de taxa'
+    server_errors: Falhou
+    cached: 'Do cache'
+    average_ms: 'Tempo médio'
+    max_ms: 'Mais longo'
+    clients: Chamadores
 
 tr:
   metric:
@@ -222,9 +460,23 @@ tr:
     visits: Ziyaretler
     views: 'Görüntülenen sayfalar'
   audience:
-    human: 'Kişiler'
+    human: Kişiler
     suspect: 'Şüpheli robotlar'
     declared: 'Beyan edilen robotlar'
+  api_outcome:
+    ok: Cevaplandı
+    client_error: Reddedildi
+    limited: 'Hız sınırlı'
+    server_error: Başarısız
+  api_metric:
+    calls: Aramalar
+    client_errors: Reddedildi
+    limited: 'Hız sınırlı'
+    server_errors: Başarısız
+    cached: Önbellekten
+    average_ms: 'Ortalama süre'
+    max_ms: 'En uzun'
+    clients: Arayanlar
 
 vi:
   metric:
@@ -232,9 +484,23 @@ vi:
     visits: 'Lượt truy cập'
     views: 'Số trang đã xem'
   audience:
-    human: 'Người'
+    human: Người
     suspect: 'Robot đáng ngờ'
     declared: 'Robot tự khai báo'
+  api_outcome:
+    ok: 'Đã trả lời'
+    client_error: 'Từ chối'
+    limited: 'Bị giới hạn tần suất'
+    server_error: 'Thất bại'
+  api_metric:
+    calls: 'Cuộc gọi'
+    client_errors: 'Từ chối'
+    limited: 'Bị giới hạn tần suất'
+    server_errors: 'Thất bại'
+    cached: 'Từ bộ nhớ cache'
+    average_ms: 'Thời gian trung bình'
+    max_ms: 'Dài nhất'
+    clients: 'Người gọi'
 
 id:
   metric:
@@ -242,9 +508,23 @@ id:
     visits: Kunjungan
     views: 'Halaman yang dilihat'
   audience:
-    human: 'Orang'
+    human: Orang
     suspect: 'Robot yang dicurigai'
     declared: 'Robot yang dideklarasikan'
+  api_outcome:
+    ok: Dijawab
+    client_error: Ditolak
+    limited: 'Batasan kecepatan'
+    server_error: Gagal
+  api_metric:
+    calls: Panggilan
+    client_errors: Ditolak
+    limited: 'Batasan kecepatan'
+    server_errors: Gagal
+    cached: 'Dari cache'
+    average_ms: 'Waktu rata-rata'
+    max_ms: Terpanjang
+    clients: Penelepon
 
 nl:
   metric:
@@ -252,6 +532,20 @@ nl:
     visits: Bezoeken
     views: "Pagina's bekeken"
   audience:
-    human: 'Personen'
+    human: Personen
     suspect: 'Verdachte robots'
     declared: 'Aangegeven robots'
+  api_outcome:
+    ok: Beantwoord
+    client_error: Geweigerd
+    limited: Snelheidsbeperking
+    server_error: Mislukt
+  api_metric:
+    calls: Oproepen
+    client_errors: Geweigerd
+    limited: Snelheidsbeperking
+    server_errors: Mislukt
+    cached: 'Uit cache'
+    average_ms: 'Gemiddelde tijd'
+    max_ms: Langste
+    clients: Bellers

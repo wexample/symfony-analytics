@@ -1,5 +1,53 @@
 {
     "common/analytics.ar.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -14,6 +62,54 @@
         }
     },
     "common/analytics.bn.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -28,6 +124,54 @@
         }
     },
     "common/analytics.de.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -42,6 +186,54 @@
         }
     },
     "common/analytics.es.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -56,6 +248,54 @@
         }
     },
     "common/analytics.fa.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -70,6 +310,54 @@
         }
     },
     "common/analytics.fi.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -84,6 +372,54 @@
         }
     },
     "common/analytics.he.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -98,6 +434,54 @@
         }
     },
     "common/analytics.hi.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -112,6 +496,54 @@
         }
     },
     "common/analytics.id.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -126,6 +558,54 @@
         }
     },
     "common/analytics.it.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -140,6 +620,54 @@
         }
     },
     "common/analytics.ja.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -154,6 +682,54 @@
         }
     },
     "common/analytics.ko.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -168,6 +744,54 @@
         }
     },
     "common/analytics.nl.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -182,6 +806,54 @@
         }
     },
     "common/analytics.pl.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -196,6 +868,54 @@
         }
     },
     "common/analytics.pt_BR.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -210,6 +930,54 @@
         }
     },
     "common/analytics.ru.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -224,6 +992,54 @@
         }
     },
     "common/analytics.th.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -238,6 +1054,54 @@
         }
     },
     "common/analytics.tr.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -252,6 +1116,54 @@
         }
     },
     "common/analytics.ur.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -266,6 +1178,54 @@
         }
     },
     "common/analytics.vi.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
@@ -280,6 +1240,54 @@
         }
     },
     "common/analytics.zh.yml": {
+        "api_metric.average_ms": {
+            "hash": "e8c0cc9148d1fe9f2280fdf8d5bd8883",
+            "engine": "syrtis"
+        },
+        "api_metric.cached": {
+            "hash": "1e6de3a6f489e7aa1d3317ae13d1b7bd",
+            "engine": "syrtis"
+        },
+        "api_metric.calls": {
+            "hash": "88788709df9a16a7b055ce44a0f8facf",
+            "engine": "syrtis"
+        },
+        "api_metric.client_errors": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_metric.clients": {
+            "hash": "b507da09e5533eaae816932419286816",
+            "engine": "syrtis"
+        },
+        "api_metric.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_metric.max_ms": {
+            "hash": "2494e18ee4e02045ec873d1b202c750f",
+            "engine": "syrtis"
+        },
+        "api_metric.server_errors": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
+        "api_outcome.client_error": {
+            "hash": "15d63ba862142324ed2a2e33014f8caf",
+            "engine": "syrtis"
+        },
+        "api_outcome.limited": {
+            "hash": "76b29a6fc0ad86c415feb7786112b82e",
+            "engine": "syrtis"
+        },
+        "api_outcome.ok": {
+            "hash": "42fcab8f63fe6fc4308d64d288a66322",
+            "engine": "syrtis"
+        },
+        "api_outcome.server_error": {
+            "hash": "4bfbe784f243989f798fd8af6044ce21",
+            "engine": "syrtis"
+        },
         "metric.views": {
             "hash": "d7278f47245d2c23cc0f10348484519e",
             "engine": "syrtis"
